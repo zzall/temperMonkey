@@ -2,8 +2,8 @@
 // @name:zh-CN   快捷搜索
 // @name         quickly search
 // @namespace    http://tampermonkey.net/
-// @version      2.0
-// @description  mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
+// @version      2.1
+// @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
 // @match        https://www.npmjs.com/*
@@ -27,12 +27,33 @@
 // @match        https://zh-hans.reactjs.org/*
 // @match        https://eslint.org/docs/*
 // @match        https://prettier.io/*
+// @match        https://translate.google.cn/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
 // ==/UserScript==
 
 (function () {
   'use strict';
+  const getUrlParams = () => {
+    var obj = {}
+    window.location.search.slice(1).split('&').map(item => {
+      if (item.split('=')) {
+        const [key, value] = item.split('=')
+        if (key && value) {
+          obj[key] = value
+        }
+      }
+    })
+    return obj;
+  }
+  const getUrlWithObj = obj => {
+    const originHrefBase = window.location.href.split('?')[0]
+    const originParamsObj = getUrlParams()
+    const newObj = { ...originParamsObj, ...obj }
+    const searchStr = Object.entries(newObj).reduce((pre, cur) => pre + `${cur[0]}=${cur[1]}&`, '')
+    return `${originHrefBase}?${searchStr.slice(0, -1)}`
+  }
+
   document.onkeydown = function (event) {
     var e = event || window.event;
     console.log(e, e.keyCode);
@@ -122,11 +143,33 @@
       }
       // prettier.io
       if (window.location.origin.includes('prettier.io')) {
-        const prettierSearch =document.querySelector('#search_input_react')
+        const prettierSearch = document.querySelector('#search_input_react')
         if (prettierSearch) {
           prettierSearch.focus()
         }
       }
+      // google translate
+      if (window.location.origin.includes('translate.google.cn')) {
+        const googleTrancelate = ddocument.querySelector('textarea[aria-label="原文"]')
+        if (googleTrancelate) {
+          googleTrancelate.focus()
+        }
+      }
+    }
+
+    // google translate 切换中英文
+    if (e && e.metaKey && e.keyCode == 70) {
+      const enStr = 'sl=en'
+      const cnStr = 'sl=zh-CN'
+      const isEn = window.location.href.includes(enStr)
+      var str = isEn ? getUrlWithObj({
+        sl: 'zh-CN',
+        tl: 'en'
+      }) : getUrlWithObj({
+        sl: 'en',
+        tl: 'zh-CN'
+      })
+      window.location.href = str
     }
     // cmd + enter
     if (e && e.metaKey && e.keyCode == 13) {
@@ -135,6 +178,7 @@
         document.querySelector("body > div.shared-page > div.main-section-body > div > div.section-padded.section-header > div.search-bar-wrapper.shared-searchbar > form > table > tbody > tr > td.search-button > a").click()
       }
     }
+
 
     if (window.location.origin.includes('portal.ai.babytree-inc.com')) {
       if (e && e.metaKey && (e.keyCode == 71 || e.keyCode == 70)) {

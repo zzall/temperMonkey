@@ -5,6 +5,19 @@
 
 ### 使用方法
 
+#### google translate
+
+* mac：cmd + g
+* windows： windows + g
+聚焦到谷歌翻译源文件textarea
+
+* mac：cmd + f
+* windows： windows + f
+切换谷歌翻译
+  * 从中文切换到英文
+  * 再次触发从英文切换到中文
+  * 循环从英文到中文的转换
+
 #### npmjs.com的搜索框定位
 
 * mac：cmd + g
