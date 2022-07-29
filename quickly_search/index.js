@@ -27,6 +27,7 @@
 // @match        https://zh-hans.reactjs.org/*
 // @match        https://eslint.org/docs/*
 // @match        https://prettier.io/*
+// @match        https://www.prettier.cn/*
 // @match        https://translate.google.cn/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
@@ -142,7 +143,7 @@
         }
       }
       // prettier.io
-      if (window.location.origin.includes('prettier.io')) {
+      if (window.location.origin.includes('prettier')) {
         const prettierSearch = document.querySelector('#search_input_react')
         if (prettierSearch) {
           prettierSearch.focus()
