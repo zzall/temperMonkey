@@ -42,7 +42,7 @@
 * mac：cmd + g
 * windows： windows + g
 
-**prettier.io、eslint docs、npmjs docs、react docs、hellogithub、gitlab、MDN、ant.mobile.design、掘金、google API、vscode插件市场搜索搜索同上**
+**github搜索个人仓库、prettier.io、eslint docs、npmjs docs、react docs、hellogithub、gitlab、MDN、ant.mobile.design、掘金、google API、vscode插件市场搜索搜索同上**
 
 ### 入口
 * [Greasy Fork](https://greasyfork.org/zh-CN/scripts/445659-quickly-search)
