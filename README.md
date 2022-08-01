@@ -17,5 +17,3 @@ cms内部管理辅助工具
 npmjs、bilibli、prettier.io、eslint docs、npmjs docs、react docs、hellogithub、gitlab、MDN、ant.mobile.design、掘金、google API、vscode插件市场
 
 等等
-
-> [github源地址](https://github.com/zzailianlian/temperMonkey/tree/master/quickly_search)
