@@ -2,7 +2,7 @@
 // @name:zh-CN   快捷搜索
 // @name         quickly search
 // @namespace    http://tampermonkey.net/
-// @version      2.2
+// @version      2.3
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
@@ -159,7 +159,7 @@
     }
 
     // google translate 切换中英文
-    if (e && e.metaKey && e.keyCode == 70) {
+    if (e && e.metaKey && e.keyCode == 70 && window.location.origin.includes('translate.google.cn')) {
       const enStr = 'sl=en'
       const cnStr = 'sl=zh-CN'
       const isEn = window.location.href.includes(enStr)
