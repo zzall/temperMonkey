@@ -29,6 +29,7 @@
 // @match        https://prettier.io/*
 // @match        https://www.prettier.cn/*
 // @match        https://translate.google.cn/*
+// @match        https://github.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
 // ==/UserScript==
@@ -154,6 +155,13 @@
         const googleTrancelate = ddocument.querySelector('textarea[aria-label="原文"]')
         if (googleTrancelate) {
           googleTrancelate.focus()
+        }
+      }
+      // github search your repositories
+      if (window.location.origin.includes('github.com')) {
+        const githubSearch =document.querySelector('input.js-your-repositories-search')
+        if (githubSearch) {
+          githubSearch.focus()
         }
       }
     }
