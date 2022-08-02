@@ -2,26 +2,24 @@
 // @name:zh-CN   快捷搜索
 // @name         quickly search
 // @namespace    http://tampermonkey.net/
-// @version      3.6.0
+// @version      3.7.0
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
-// @match        https://www.npmjs.com/*
-// @match        https://docs.npmjs.com/*
+// @match        *://*.npmjs.com/*
 // @match        http://portal.ai.babytree-inc.com/*
 // @match        https://www.bootcdn.cn/*
 // @match        https://www.bilibili.com/*
 // @match        https://search.bilibili.com/*
 // @match        http://splunk.ali.plt.babytree-inc.com/*
 // @match        http://developer.chrome.com/*
-// @match        https://juejin.cn/*
-// @match        https://juejin.im/*
+// @match        *://juejin.cn/*
+// @match        *://juejin.im/*
 // @match        https://developer.chrome.com/*
 // @match        https://marketplace.visualstudio.com/*
 // @match        https://mobile.ant.design/*
 // @match        https://developer.mozilla.org/*
-// @match        http://gitlab.babytree-inc.com/*
-// @match        https://gitlab.babytree-inc.com/*
+// @match        *://gitlab.babytree-inc.com/*
 // @match        https://hellogithub.com/*
 // @match        https://react.docschina.org/*
 // @match        https://zh-hans.reactjs.org/*
