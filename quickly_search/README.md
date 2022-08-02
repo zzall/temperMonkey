@@ -55,36 +55,46 @@
 如果想要提供贡献，请依据最新的方式提供配置
 ```javascript
 /**
-   * config是一个基础对象
-   * key 为 要匹配的url
-   * value 为 具体事件
-   *  value为一个基础对象
-   *    keyCode {number} 监听键盘的keycode
-   *    metaKey {boolean} 是否按下command或windows按键
-   *    searchSelectorStr {string|array} 搜索框的css选择器，最终选择效果由document.querySelector(searchSelectorStr)来决定
-   *      为string时，在触发指定键盘按键事件之后自动调用该选择器所选择元素的focus事件，也就是自动聚焦
-   *      为array时，允许设置多个选择器字符串，这些字符串之间的关系是`||`，位于数组更前方的选择器优先级更大
-   *    isESCblur {boolean} 是否在键入`ESC`按键之后取消聚焦状态
-   *    cb {function} 触发指定键盘事件之后的回调函数
-   *    escCb {function} 触发`ESC`之后的回调函数
-   * 
-   * value的默认值为
-   * 
-   * const defaultOpts = {
-      metaKey: true,
-      isESCblur: true,
-      keyCode: 71,
-      isPreventDefault: true,
-      searchSelectorStr: '',
-      cb: () => { },
-      escCb: () => { }
-    }
-   * 常用keyCode
-      71 g
-      70 f
-      13 回车
-      27 esc
-   */
+ * config是一个基础对象
+ * key 为 要匹配的url
+ * value 为 针对已匹配的url所触发的键盘监听事件等一系列配置
+ *  value {string | object | array[string|array|object]}
+ *    为string时
+ *      默认赋值给searchSelectorStr，其他options使用默认值
+ *      例如：'www.baidu.com':'input'等同于'www.baidu.com':{searchSelectorStr:'input'}
+ *    为object时
+ *      keyCode {number} 监听键盘的keycode
+ *      metaKey {boolean} 是否按下command或windows按键
+ *      searchSelectorStr {string|array} 搜索框的css选择器，最终选择效果由document.querySelector(searchSelectorStr)来决定
+ *        为string时，在触发指定键盘按键事件之后自动调用该选择器所选择元素的focus事件，也就是自动聚焦
+ *        为array时，允许设置多个选择器字符串，这些字符串之间的关系是`||`，位于数组更前方的选择器优先级更大
+ *      isESCblur {boolean} 是否在键入`ESC`按键之后取消聚焦状态
+ *      cb {function} 触发指定键盘事件之后的回调函数
+ *      escCb {function} 触发`ESC`之后的回调函数
+ *    为array时
+ *      允许配置多个键盘监听事件
+ *        array item为string时，参考value为string的情况
+ *        array item为array时，参考searchSelectorStr为array的情况
+ *        array item为object时，参考value为object的情况
+ *          
+ * 
+ * value的默认值为
+ * 
+ * const defaultOpts = {
+    metaKey: true,
+    isESCblur: true,
+    keyCode: 71,
+    isPreventDefault: true,
+    searchSelectorStr: '',
+    cb: () => { },
+    escCb: () => { }
+  }
+  * 常用keyCode
+    71 g
+    70 f
+    13 回车
+    27 esc
+  */
 
 // 例如
 const config = {

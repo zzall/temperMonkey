@@ -2,7 +2,7 @@
 // @name:zh-CN   快捷搜索
 // @name         quickly search
 // @namespace    http://tampermonkey.net/
-// @version      3.4.1
+// @version      3.5.0
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
@@ -39,16 +39,26 @@
   /**
    * config是一个基础对象
    * key 为 要匹配的url
-   * value 为 具体事件
-   *  value为一个基础对象
-   *    keyCode {number} 监听键盘的keycode
-   *    metaKey {boolean} 是否按下command或windows按键
-   *    searchSelectorStr {string|array} 搜索框的css选择器，最终选择效果由document.querySelector(searchSelectorStr)来决定
-   *      为string时，在触发指定键盘按键事件之后自动调用该选择器所选择元素的focus事件，也就是自动聚焦
-   *      为array时，允许设置多个选择器字符串，这些字符串之间的关系是`||`，位于数组更前方的选择器优先级更大
-   *    isESCblur {boolean} 是否在键入`ESC`按键之后取消聚焦状态
-   *    cb {function} 触发指定键盘事件之后的回调函数
-   *    escCb {function} 触发`ESC`之后的回调函数
+   * value 为 针对已匹配的url所触发的键盘监听事件等一系列配置
+   *  value {string | object | array[string|array|object]}
+   *    为string时
+   *      默认赋值给searchSelectorStr，其他options使用默认值
+   *      例如：'www.baidu.com':'input'等同于'www.baidu.com':{searchSelectorStr:'input'}
+   *    为object时
+   *      keyCode {number} 监听键盘的keycode
+   *      metaKey {boolean} 是否按下command或windows按键
+   *      searchSelectorStr {string|array} 搜索框的css选择器，最终选择效果由document.querySelector(searchSelectorStr)来决定
+   *        为string时，在触发指定键盘按键事件之后自动调用该选择器所选择元素的focus事件，也就是自动聚焦
+   *        为array时，允许设置多个选择器字符串，这些字符串之间的关系是`||`，位于数组更前方的选择器优先级更大
+   *      isESCblur {boolean} 是否在键入`ESC`按键之后取消聚焦状态
+   *      cb {function} 触发指定键盘事件之后的回调函数
+   *      escCb {function} 触发`ESC`之后的回调函数
+   *    为array时
+   *      允许配置多个键盘监听事件
+   *        array item为string时，参考value为string的情况
+   *        array item为array时，参考searchSelectorStr为array的情况
+   *        array item为object时，参考value为object的情况
+   *          
    * 
    * value的默认值为
    * 
@@ -91,14 +101,15 @@
     'developer.chrome.com': '.search-box__input', // 谷歌api文档 搜索
     'mobile.ant.design': '.__dumi-default-search-input', // mobile ant 搜索
     'juejin': {
+      searchSelectorStr: 'input[type="search"]',
       cb: () => {
         [...document.querySelector('.main-header').classList].includes('visible') ? null : document.querySelector('.main-header').classList.add('visible')
         document.querySelector('input[type="search"]').focus()
       }
     }, // 掘金搜索
     'marketplace.visualstudio.com': '.search-input', // vscode 市场搜索
-    'developer.mozilla.org': ['#hp-search-input', '#top-nav-search-input'], // mdn搜索
-    'gitlab': ['input[type="search"]', '#dashboard_search'], // gitlab搜索
+    'developer.mozilla.org': [['#hp-search-input', '#top-nav-search-input']], // mdn搜索
+    'gitlab': [['input[type="search"]', '#dashboard_search']], // gitlab搜索
     'splunk.ali.plt.babytree-inc.com': [
       '.ace_text-input', // splunk搜索
       {
@@ -193,18 +204,17 @@
     document.onkeydown = function (event) {
       var e = event || window.event;
       const generateMainChild = (href, val) => {
+        console.log('child', val, e, e.keyCode)
         const { metaKey, isESCblur, keyCode, isPreventDefault, searchSelectorStr, cb, escCb } = { ...defaultOpts, ...val };
         const isMetaKey = e.metaKey && metaKey
         const isEqualKeyCode = e.keyCode == keyCode
         if (isMetaKey && isEqualKeyCode) {
           isPreventDefault && e.preventDefault();
-
           if (window.location.origin.includes(href)) {
             if (searchSelectorStr) {
               const searchCommonDom = searchSelectorStr instanceof Array
                 ? searchSelectorStr.map(selector => document.querySelector(selector)).find(Boolean)
                 : document.querySelector(searchSelectorStr)
-
               searchCommonDom && searchCommonDom.focus()
             }
             cb && cb();
@@ -221,12 +231,13 @@
       }
       Object.entries(config).map(item => {
         let [href, vals] = item;
+        if (!window.location.origin.includes(href)) return;
         if (typeof vals === 'string') {
           return generateMainChild(href, { searchSelectorStr: vals })
         }
         if (vals instanceof Array) {
-          return vals = vals.map(valsItem => {
-            if (typeof valsItem === 'string') {
+          return vals.map(valsItem => {
+            if (typeof valsItem === 'string' || valsItem instanceof Array) {
               generateMainChild(href, { searchSelectorStr: valsItem })
             } else {
               generateMainChild(href, valsItem)
