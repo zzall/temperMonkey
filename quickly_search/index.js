@@ -2,7 +2,7 @@
 // @name:zh-CN   快捷搜索
 // @name         quickly search
 // @namespace    http://tampermonkey.net/
-// @version      3.5.0
+// @version      3.6.0
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
@@ -204,7 +204,6 @@
     document.onkeydown = function (event) {
       var e = event || window.event;
       const generateMainChild = (href, val) => {
-        console.log('child', val, e, e.keyCode)
         const { metaKey, isESCblur, keyCode, isPreventDefault, searchSelectorStr, cb, escCb } = { ...defaultOpts, ...val };
         const isMetaKey = e.metaKey && metaKey
         const isEqualKeyCode = e.keyCode == keyCode
