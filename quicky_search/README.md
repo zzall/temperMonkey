@@ -48,7 +48,7 @@
 * [Greasy Fork](https://greasyfork.org/zh-CN/scripts/445659-quickly-search)
 
 
-> [github源地址](https://github.com/zzailianlian/temperMonkey/tree/master/quickly_search)
+> [github源地址](https://github.com/zzailianlian/temperMonkey/tree/master/quicky_search)
 
 ### 给贡献者
 

@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name:zh-CN   快捷搜索
-// @name         quickly search
+// @name:zh-CN   掘金、npmjs、mdn、bilibli、github等快捷搜索
+// @name         quicky search
 // @namespace    http://tampermonkey.net/
-// @version      3.7.0
+// @version      3.7.1
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
