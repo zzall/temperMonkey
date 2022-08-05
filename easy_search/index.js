@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name:zh-CN   掘金、npmjs、mdn、bilibli、github等快捷搜索
-// @name         quicky search
+// @name         easy search
 // @namespace    http://tampermonkey.net/
-// @version      3.7.1
+// @version      3.8.1
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
@@ -27,7 +27,7 @@
 // @match        https://prettier.io/*
 // @match        https://www.prettier.cn/*
 // @match        https://translate.google.cn/*
-// @match        https://github.com/*
+// @match        *://*.github.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
 // ==/UserScript==
@@ -151,6 +151,7 @@
     'eslint.org': '#search', // eslint.org 搜索
     'prettier': '#search_input_react', // prettier.io 搜索
     'github.com': 'input.js-your-repositories-search', // github search your repositories
+    'docs.github.com': 'input[type=search]', // github search your repositories
     // 该写翻译中英文了
     'translate.google.cn': [
       'textarea[aria-label="原文"]', // google translate

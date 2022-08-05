@@ -11,7 +11,7 @@ cms内部管理辅助工具
 * 简书
 * 掘金
 
-## quicky_search
+## easy_search
 通过快捷键mac的`cmd + g`或windows的`control + g`快速聚焦到各大前端常用网站的搜索框
 
 npmjs、bilibli、prettier.io、eslint docs、npmjs docs、react docs、hellogithub、gitlab、MDN、ant.mobile.design、掘金、google API、vscode插件市场
