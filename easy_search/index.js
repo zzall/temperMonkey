@@ -199,13 +199,13 @@
             .click()
         },
       }, // 埋点系统搜索按钮点击
-      {
-        keyCode: 86,
-        cb() {
-          //  // meta（cmd/windows按键） + c  点击复制后直接调起筛选
-          //       //document.querySelector("body > div.container-wrap.mb-g > div.vip-right > div.right-box > div.am-titlebar.am-titlebar-default.am-no-layout > nav > form > button:nth-child(9)").click();
-        },
-      }, //  meta（cmd/windows按键） + c  点击复制后直接调起筛选
+      // {
+      //   keyCode: 86,
+      //   cb() {
+      //     //  // meta（cmd/windows按键） + c  点击复制后直接调起筛选
+      //     //       //document.querySelector("body > div.container-wrap.mb-g > div.vip-right > div.right-box > div.am-titlebar.am-titlebar-default.am-no-layout > nav > form > button:nth-child(9)").click();
+      //   },
+      // }, //  meta（cmd/windows按键） + c  点击复制后直接调起筛选
     ],
   }
 
