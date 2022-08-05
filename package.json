@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prettier": "prettier --write .",
-    "publish": "np  --no-publish  --tag "
+    "publish": "np --no-cleanup --yolo --any-branch  --no-publish "
   },
   "repository": {
     "type": "git",
