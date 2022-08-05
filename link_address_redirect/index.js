@@ -11,14 +11,14 @@
 // @grant        none
 // ==/UserScript==
 
-(function () {
-  'use strict';
+;(function () {
+  'use strict'
   const originUrl = window.location.href
   // 掘金重定向
   if (originUrl.includes('https://link.juejin.cn/')) {
     const targetUrl = originUrl.split('target=')[1]
     if (targetUrl) {
-        console.log('目标路径',decodeURIComponent(targetUrl))
+      console.log('目标路径', decodeURIComponent(targetUrl))
       window.location.href = decodeURIComponent(targetUrl)
     }
   }
@@ -29,4 +29,4 @@
       window.location.href = decodeURIComponent(targetUrl)
     }
   }
-})();
+})()

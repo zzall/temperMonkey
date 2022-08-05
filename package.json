@@ -1,0 +1,25 @@
+{
+  "name": "temper-monkey",
+  "version": "1.0.0",
+  "description": "油猴插件合集",
+  "main": "index.js",
+  "scripts": {
+    "prettier": "prettier --write .",
+    "publish": "np  --no-publish  --tag "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zzailianlian/temperMonkey.git"
+  },
+  "keywords": [],
+  "author": "zzailianlian <240592864@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zzailianlian/temperMonkey/issues"
+  },
+  "homepage": "https://github.com/zzailianlian/temperMonkey#readme",
+  "devDependencies": {
+    "np": "^7.6.2",
+    "prettier": "^2.7.1"
+  }
+}
