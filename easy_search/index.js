@@ -2,7 +2,7 @@
 // @name:zh-CN   掘金、npmjs、mdn、bilibli、github等快捷搜索
 // @name         掘金、npmjs、mdn、bilibli、github等快捷搜索
 // @namespace    http://tampermonkey.net/
-// @version      3.9.2
+// @version      3.10.2
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
@@ -15,6 +15,7 @@
 // @match        http://developer.chrome.com/*
 // @match        *://juejin.cn/*
 // @match        *://juejin.im/*
+// @match        *://*.vuejs.org/*
 // @match        https://developer.chrome.com/*
 // @match        https://marketplace.visualstudio.com/*
 // @match        https://mobile.ant.design/*
@@ -32,7 +33,7 @@
 // @grant        none
 // ==/UserScript==
 
-;(function () {
+; (function () {
   'use strict'
   /**
    * config是一个基础对象
@@ -81,19 +82,21 @@
       metaKey: true,
       searchSelectorStr: "input[type='search']",
       isESCblur: true,
-      cb: () => {},
+      cb: () => { },
     }, // npmjs 搜索
     'docs.npmjs.com': {
       keyCode: 71,
       metaKey: true,
       searchSelectorStr: 'input[type=text]',
       isESCblur: true,
-      cb: () => {},
+      cb: () => { },
     }, // npmjs文档 搜索
     'www.bootcdn.cn': {
       searchSelectorStr: '.search-wraper input[type=text]',
     }, // bootcdn 搜索
     'developer.chrome.com': '.search-box__input', // 谷歌api文档 搜索
+    'cn.vuejs.org': '#search-query-nav', // vue官方文档 搜索
+    'cli.vuejs.org': '#algolia-search-input', // vue-cli文档 搜索
     'mobile.ant.design': '.__dumi-default-search-input', // mobile ant 搜索
     juejin: {
       searchSelectorStr: 'input[type="search"]',
@@ -176,13 +179,13 @@
           const isEn = window.location.href.includes(enStr)
           var str = isEn
             ? getUrlWithObj({
-                sl: 'zh-CN',
-                tl: 'en',
-              })
+              sl: 'zh-CN',
+              tl: 'en',
+            })
             : getUrlWithObj({
-                sl: 'en',
-                tl: 'zh-CN',
-              })
+              sl: 'en',
+              tl: 'zh-CN',
+            })
           window.location.href = str
         }, // 切换中英文
       },
@@ -217,8 +220,8 @@
       keyCode: 71,
       isPreventDefault: true,
       searchSelectorStr: '',
-      cb: () => {},
-      escCb: () => {},
+      cb: () => { },
+      escCb: () => { },
     }
     document.onkeydown = function (event) {
       var e = event || window.event
@@ -241,8 +244,8 @@
               const searchCommonDom =
                 searchSelectorStr instanceof Array
                   ? searchSelectorStr
-                      .map(selector => document.querySelector(selector))
-                      .find(Boolean)
+                    .map(selector => document.querySelector(selector))
+                    .find(Boolean)
                   : document.querySelector(searchSelectorStr)
               searchCommonDom && searchCommonDom.focus()
             }
