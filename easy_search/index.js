@@ -2,7 +2,7 @@
 // @name:zh-CN   掘金、npmjs、mdn、bilibli、github等快捷搜索
 // @name         掘金、npmjs、mdn、bilibli、github等快捷搜索
 // @namespace    http://tampermonkey.net/
-// @version      3.10.2
+// @version      3.11.2
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
@@ -29,6 +29,7 @@
 // @match        https://www.prettier.cn/*
 // @match        https://translate.google.cn/*
 // @match        *://*.github.com/*
+// @match        *://hub.docker.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
 // ==/UserScript==
@@ -77,6 +78,7 @@
       27 esc
    */
   const config = {
+    'hub.docker.com:'input',
     'www.npmjs.com': {
       keyCode: 71,
       metaKey: true,
