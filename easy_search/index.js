@@ -30,6 +30,7 @@
 // @match        https://translate.google.cn/*
 // @match        *://*.github.com/*
 // @match        *://hub.docker.com/*
+// @match        *://*.plt.babytree-inc.com/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
 // ==/UserScript==
@@ -79,6 +80,7 @@
    */
   const config = {
     'hub.docker.com': 'input',
+    '.plt.babytree-inc.com': '.main-search__input',
     'www.npmjs.com': {
       keyCode: 71,
       metaKey: true,

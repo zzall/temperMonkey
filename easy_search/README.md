@@ -57,6 +57,7 @@
 * google API
 * vscode插件市场搜索搜索
 * docker hub
+* jenkins
 
 
 ### 入口
