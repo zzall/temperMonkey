@@ -165,7 +165,7 @@
         }
       },
     }, // splunk搜索
-    'www.bilibili.com': '.nav-search-content input', // bilibili首页的搜索框定位
+    'www.bilibili.com': 'input', // bilibili首页的搜索框定位
     'search.bilibili.com': '.search-input-el', // bilibili搜索页的搜索框定位
     react: '#algolia-doc-search', // react 官网搜索
     'eslint.org': '#search', // eslint.org 搜索
