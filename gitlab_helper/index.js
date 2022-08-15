@@ -2,8 +2,8 @@
 // @name         gitlab小帮手:一键复制url与commit信息
 // @name:zh-CN   gitlab小帮手:一键复制url与commit信息
 // @namespace    http://tampermonkey.net/
-// @version      0.1.0
-// @description  gitlab小帮手:一键复制url与commit信息
+// @version      0.2.0
+// @description  1.一键复制url与commit信息
 // @author       zzailianlian
 // @require      https://unpkg.com/clipboard@2.0.11/dist/clipboard.min.js
 // @match        *://gitlab.babytree-inc.com/**/merge_requests/*
@@ -37,7 +37,7 @@
 
     const commitText = $('.detail-page-description h2:not(button)').text();
     commitDom.append(btn)
-    const info = `${window.location.href}
+    const info = `${window.location.href.match(/.+merge_requests\/\d+/)[0]}
       ${commitText}`;
 
     function copyUrlAndCommitInfo() {
