@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         link address redirect
+// @name         链接跳转重定向
 // @name:zh-CN   链接跳转重定向
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  掘金直接跳转，不需要手动点击【继续访问】,也支持简书重定向
 // @author       You
 // @match        *://link.juejin.cn/*
