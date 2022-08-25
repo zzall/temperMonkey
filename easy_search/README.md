@@ -58,6 +58,8 @@
 * vscode插件市场搜索搜索
 * docker hub
 * jenkins
+* 淘宝镜像官网
+* 华为云镜像官网
 
 
 ### 入口

@@ -2,7 +2,7 @@
 // @name:zh-CN   掘金、npmjs、mdn、bilibli、github等快捷搜索
 // @name         掘金、npmjs、mdn、bilibli、github等快捷搜索
 // @namespace    http://tampermonkey.net/
-// @version      3.13.3
+// @version      3.14.3
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
@@ -28,9 +28,11 @@
 // @match        https://prettier.io/*
 // @match        https://www.prettier.cn/*
 // @match        https://translate.google.cn/*
+// @match        *://npmmirror.com/*
 // @match        *://*.github.com/*
 // @match        *://hub.docker.com/*
 // @match        *://*.plt.babytree-inc.com/
+// @match        *://mirrors.huaweicloud.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
 // ==/UserScript==
@@ -52,8 +54,9 @@
    *        为string时，在触发指定键盘按键事件之后自动调用该选择器所选择元素的focus事件，也就是自动聚焦
    *        为array时，允许设置多个选择器字符串，这些字符串之间的关系是`||`，位于数组更前方的选择器优先级更大
    *      isESCblur {boolean} 是否在键入`ESC`按键之后取消聚焦状态
-   *      cb {function} 触发指定键盘事件之后的回调函数
+   *      cb {function} 触发指定键盘事件之后的回调函数，如果存在tragetdom ，则传入target dom作为cb的参数
    *      escCb {function} 触发`ESC`之后的回调函数
+   *      preFocusEvent {function} 触发`focus`之前的事件函数，会传入target dom用作focus前的dom操作
    *    为array时
    *      允许配置多个键盘监听事件
    *        array item为string时，参考value为string的情况
@@ -79,7 +82,15 @@
       27 esc
    */
   const config = {
+    'mirrors.huaweicloud.com': {
+      searchSelectorStr: '.devui-select-filter-input',
+      preFocusEvent(target) {
+        console.log('target', target)
+        target && (target.style.display = 'block')
+      }
+    },
     'hub.docker.com': 'input',
+    'npmmirror.com': 'input',
     '.plt.babytree-inc.com': '.main-search__input',
     'www.npmjs.com': {
       keyCode: 71,
@@ -226,6 +237,7 @@
       searchSelectorStr: '',
       cb: () => { },
       escCb: () => { },
+      preFocusEvent: () => { },
     }
     document.onkeydown = function (event) {
       var e = event || window.event
@@ -238,6 +250,7 @@
           searchSelectorStr,
           cb,
           escCb,
+          preFocusEvent,
         } = { ...defaultOpts, ...val }
         const isMetaKey = e.metaKey && metaKey
         const isEqualKeyCode = e.keyCode == keyCode
@@ -251,7 +264,10 @@
                     .map(selector => document.querySelector(selector))
                     .find(Boolean)
                   : document.querySelector(searchSelectorStr)
+              console.log('searchCommonDom', searchCommonDom)
+              preFocusEvent && preFocusEvent(searchCommonDom)
               searchCommonDom && searchCommonDom.focus()
+              return cb && cb(searchCommonDom)
             }
             cb && cb()
           }
