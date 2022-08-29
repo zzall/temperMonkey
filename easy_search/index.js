@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name:zh-CN   掘金、npmjs、mdn、bilibli、github等快捷搜索
-// @name         掘金、npmjs、mdn、bilibli、github等快捷搜索
+// @name:zh-CN   快捷搜索：覆盖掘金、npmjs、mdn、bilibili、github等基本所有开发者常用网址
+// @name         快捷搜索：覆盖掘金、npmjs、mdn、bilibili、github等基本所有开发者常用网址
 // @namespace    http://tampermonkey.net/
-// @version      3.14.3
+// @version      3.15.3
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
@@ -33,6 +33,7 @@
 // @match        *://hub.docker.com/*
 // @match        *://*.plt.babytree-inc.com/
 // @match        *://mirrors.huaweicloud.com/*
+// @match        *://jenkins3.plt.babytree-inc.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
 // ==/UserScript==
@@ -90,6 +91,7 @@
       }
     },
     'hub.docker.com': 'input',
+    'jenkins3.plt.babytree-inc.com': 'input',
     'npmmirror.com': 'input',
     '.plt.babytree-inc.com': '.main-search__input',
     'www.npmjs.com': {
