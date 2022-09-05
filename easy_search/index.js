@@ -2,7 +2,7 @@
 // @name:zh-CN   快捷搜索：覆盖掘金、npmjs、mdn、bilibili、github等基本所有开发者常用网址
 // @name         快捷搜索：覆盖掘金、npmjs、mdn、bilibili、github等基本所有开发者常用网址
 // @namespace    http://tampermonkey.net/
-// @version      3.15.3
+// @version      3.16.3
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
