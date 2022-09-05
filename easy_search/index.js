@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name:zh-CN   快捷搜索：覆盖掘金、npmjs、mdn、bilibili、github等基本所有开发者常用网址
-// @name         快捷搜索：覆盖掘金、npmjs、mdn、bilibili、github等基本所有开发者常用网址
+// @name:zh-CN   快捷搜索-开发者搜索：覆盖掘金、npmjs、mdn、bilibili、github、菜鸟搜索等基本所有开发者常用网址
+// @name         快捷搜索-开发者搜索：覆盖掘金、react docs、google API、vscode插件市场搜索搜索、菜鸟搜索、docker hub、淘宝镜像官网、华为云镜像官网、jenkins、npmjs、mdn、ant.mobile.design、bilibili、github、prettier.io、等基本所有开发者常用网址
 // @namespace    http://tampermonkey.net/
-// @version      3.16.3
+// @version      3.17.3
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
@@ -36,6 +36,7 @@
 // @match        *://jenkins3.plt.babytree-inc.com/*
 // @match        *://www.typescriptlang.org/*
 // @match        *://www.runoob.com/*
+// @match        *://greasyfork.org/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
 // ==/UserScript==
@@ -93,6 +94,7 @@
       }
     },
     'hub.docker.com': 'input',
+    'greasyfork.org': 'input[type=search]',
     'www.runoob.com': '#s',
     'www.typescriptlang.org': 'input',
     'jenkins3.plt.babytree-inc.com': 'input',
