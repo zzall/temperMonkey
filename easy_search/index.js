@@ -35,6 +35,7 @@
 // @match        *://mirrors.huaweicloud.com/*
 // @match        *://jenkins3.plt.babytree-inc.com/*
 // @match        *://www.typescriptlang.org/*
+// @match        *://www.runoob.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
 // ==/UserScript==
@@ -92,6 +93,7 @@
       }
     },
     'hub.docker.com': 'input',
+    'www.runoob.com': '#s',
     'www.typescriptlang.org': 'input',
     'jenkins3.plt.babytree-inc.com': 'input',
     'npmmirror.com': 'input',
