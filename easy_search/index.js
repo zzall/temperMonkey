@@ -34,6 +34,7 @@
 // @match        *://*.plt.babytree-inc.com/
 // @match        *://mirrors.huaweicloud.com/*
 // @match        *://jenkins3.plt.babytree-inc.com/*
+// @match        *://www.typescriptlang.org/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
 // ==/UserScript==
@@ -91,6 +92,7 @@
       }
     },
     'hub.docker.com': 'input',
+    'www.typescriptlang.org': 'input',
     'jenkins3.plt.babytree-inc.com': 'input',
     'npmmirror.com': 'input',
     '.plt.babytree-inc.com': '.main-search__input',
@@ -286,6 +288,7 @@
       Object.entries(config).map(item => {
         let [href, vals] = item
         if (!window.location.origin.includes(href)) return
+        console.log('href',href,window.location.origin.includes(href))
         if (typeof vals === 'string') {
           return generateMainChild(href, { searchSelectorStr: vals })
         }
