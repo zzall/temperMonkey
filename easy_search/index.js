@@ -37,6 +37,7 @@
 // @match        *://www.typescriptlang.org/*
 // @match        *://www.runoob.com/*
 // @match        *://greasyfork.org/*
+// @match        *://www.expressjs.com.cn/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
 // ==/UserScript==
@@ -94,8 +95,9 @@
       }
     },
     'hub.docker.com': 'input',
+    'www.expressjs.com.cn': 'input',
     'greasyfork.org': 'input[type=search]',
-    'www.runoob.com': '#s',
+    'www.runoob.com': '#s', // 菜鸟搜索
     'www.typescriptlang.org': 'input',
     'jenkins3.plt.babytree-inc.com': 'input',
     'npmmirror.com': 'input',
