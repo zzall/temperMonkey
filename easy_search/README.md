@@ -62,6 +62,7 @@
 * 华为云镜像官网
 * jenkins
 * 菜鸟搜索
+* confluence搜索
 
 
 ### 入口
