@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         gitlab小帮手:一键复制url与commit信息
-// @name:zh-CN   gitlab小帮手:一键复制url与commit信息
+// @name         gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块
+// @name:zh-CN   gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块
 // @namespace    http://tampermonkey.net/
-// @version      0.3.0
-// @description  1.一键复制url与commit信息
+// @version      0.3.1
+// @description  1.一键复制url与commit信息；2.一键展开收起diff模块
 // @author       zzailianlian
 // @require      https://unpkg.com/clipboard@2.0.11/dist/clipboard.min.js
 // @match        *://gitlab.babytree-inc.com/**/merge_requests/*
