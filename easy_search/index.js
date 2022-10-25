@@ -2,7 +2,7 @@
 // @name:zh-CN   快捷搜索-开发者搜索：覆盖掘金、react docs、google API、vscode插件市场搜索搜索、菜鸟搜索、docker hub、淘宝镜像官网、华为云镜像官网、jenkins、npmjs、mdn、ant.mobile.design、bilibili、github、prettier.io、等基本所有开发者常用网址
 // @name         快捷搜索-开发者搜索：掘金、react、google API、vscode插件市场、菜鸟搜索、docker、淘宝、华为云镜像官网、npmjs、mdn、antd、bilib、github等开发者常用网址
 // @namespace    http://tampermonkey.net/
-// @version      3.19.4
+// @version      3.19.5
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @author       zzailianlian
@@ -195,7 +195,8 @@
     react: '#algolia-doc-search', // react 官网搜索
     'eslint.org': '#search', // eslint.org 搜索
     prettier: '#search_input_react', // prettier.io 搜索
-    'github.com': 'input.js-your-repositories-search', // github search your repositories
+    'github.com': ['.application-main input[type=search]','.application-main input[type=text]'], // github search your repositories
+    // 'github.com': 'input.js-your-repositories-search', // github search your repositories
     'docs.github.com': 'input[type=search]', // github search your repositories
     // 该写翻译中英文了
     'translate.google.cn': [
