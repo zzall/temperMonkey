@@ -2,9 +2,10 @@
 // @name         链接跳转重定向
 // @name:zh-CN   链接跳转重定向
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4.1
 // @description  掘金直接跳转，不需要手动点击【继续访问】,也支持简书重定向
 // @author       You
+// @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/link_address_redirect/index.js
 // @match        *://link.juejin.cn/*
 // @match        *://link.juejin.im/*
 // @match        https://www.jianshu.com/go-wild?*

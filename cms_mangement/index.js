@@ -1,16 +1,11 @@
-/*
- * @Description: File Description
- * @FilePath: /backend_cms_mangement/index.js
- * @LastEditors: zzz
- * @LastEditTime: 2022-04-14 15:11:54
- */
 // ==UserScript==
 // @name         cms backend management
 // @name:zh-CN   cms内部管理
 // @namespace    http://tampermonkey.net/
-// @version      0.5.3
+// @version      0.5.4
 // @description  cms内部管理
 // @author       zzailianlian
+// @updateURL    https://raw.githubusercontents.com/zzall/temperMonkey/master/cms_mangement/index.js
 // @require https://code.jquery.com/jquery-3.5.1.min.js
 // @match        http://backend.meitun-test.com/index
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=meitun-test.com

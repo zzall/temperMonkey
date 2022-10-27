@@ -2,7 +2,8 @@
 // @name         掘金小帮手：纯净复制
 // @name:zh-CN   掘金小帮手：纯净复制
 // @namespace    http://tampermonkey.net/
-// @version      0.1.0
+// @version      0.1.1
+// @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/juejin_helper/index.js
 // @description  掘金小帮手：纯净复制
 // @author       zzailianlian
 // @require      https://code.jquery.com/jquery-3.5.1.min.js

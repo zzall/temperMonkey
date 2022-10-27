@@ -2,7 +2,8 @@
 // @name         gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块
 // @name:zh-CN   gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块
 // @namespace    http://tampermonkey.net/
-// @version      0.3.1
+// @version      0.3.2
+// @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/gitlab_helper/index.js
 // @description  1.一键复制url与commit信息；2.一键展开收起diff模块
 // @author       zzailianlian
 // @require      https://unpkg.com/clipboard@2.0.11/dist/clipboard.min.js

@@ -2,9 +2,10 @@
 // @name         破解禁止登陆，破解禁止复制
 // @name:zh-CN   破解禁止登陆，破解禁止复制
 // @namespace    http://tampermonkey.net/
-// @version      0.1.0
+// @version      0.1.1
 // @description  破解禁止登陆，破解禁止复制
 // @author       zzailianlian
+// @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/crack_copy_login_eg/index.js
 // @require      https://code.jquery.com/jquery-3.5.1.min.js
 // @match        *://*.360doc.com/*
 // @match        *://juejin.im/*
