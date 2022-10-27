@@ -68,6 +68,8 @@
 ### 入口
 * [Greasy Fork](https://greasyfork.org/zh-CN/scripts/445659-quickly-search)
 
+* [OpenUserjs](https://openuserjs.org/scripts/zzailianlian/%E5%BF%AB%E6%8D%B7%E6%90%9C%E7%B4%A2-%E5%BC%80%E5%8F%91%E8%80%85%E6%90%9C%E7%B4%A2%EF%BC%9A%E6%8E%98%E9%87%91%E3%80%81react%E3%80%81google_API%E3%80%81vscode%E6%8F%92%E4%BB%B6%E5%B8%82%E5%9C%BA%E3%80%81%E8%8F%9C%E9%B8%9F%E6%90%9C%E7%B4%A2%E3%80%81docker%E3%80%81%E6%B7%98%E5%AE%9D%E3%80%81%E5%8D%8E%E4%B8%BA%E4%BA%91%E9%95%9C%E5%83%8F%E5%AE%98%E7%BD%91%E3%80%81npmjs%E3%80%81mdn%E3%80%81antd%E3%80%81bilib%E3%80%81github%E7%AD%89%E5%BC%80%E5%8F%91%E8%80%85%E5%B8%B8%E7%94%A8%E7%BD%91%E5%9D%80)
+
 
 > [github源地址](https://github.com/zzailianlian/temperMonkey/tree/master/easy_search)
 
