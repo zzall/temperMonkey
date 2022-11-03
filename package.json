@@ -6,7 +6,7 @@
   "scripts": {
     "prettier": "prettier --write .",
     "publish": "np --no-cleanup --yolo --any-branch  --no-publish ",
-    "wokoo": "wokoo my-plugin2"
+    "wokoo": "wokoo my-plugin3"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/zzailianlian/temperMonkey#readme",
   "devDependencies": {
+    "base-prettier-config": "^1.2.8",
     "np": "^7.6.2",
     "prettier": "^2.7.1",
     "wokoo": "^0.3.3"

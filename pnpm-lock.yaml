@@ -1,11 +1,13 @@
 lockfileVersion: 5.4
 
 specifiers:
+  base-prettier-config: ^1.2.8
   np: ^7.6.2
   prettier: ^2.7.1
   wokoo: ^0.3.3
 
 devDependencies:
+  base-prettier-config: 1.2.8
   np: 7.6.2
   prettier: 2.7.1
   wokoo: 0.3.3
@@ -269,6 +271,10 @@ packages:
 
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+    dev: true
+
+  /base-prettier-config/1.2.8:
+    resolution: {integrity: sha512-SkKwA5EZg6p5r72if32qDU1iC+cAziWtAlaz3fOATOQDrdXkrCuLErdVhDA6MEgtGo0ZUP/fvw42h1abP8IVwQ==}
     dev: true
 
   /bluebird/3.7.2:

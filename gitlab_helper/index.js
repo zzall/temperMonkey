@@ -25,6 +25,17 @@
     fontSize: '16px',
     marginLeft: '4px',
   };
+
+  // commit列表
+  function initCommitList() {
+    const parentNode = document.querySelector('.form-group [for=merge_request_title]').parentElement;
+    const commitList = document.querySelectorAll('li .commit').map(dom => ({
+      commitContent: dom.querySelector('.commit-row-message').innerText,
+      commitAuthor: dom.querySelector('.commit-author-link').innerText,
+    }));
+  }
+
+  // 复制按钮
   function initCopyBtn() {
     const commitDom = $('.detail-page-description h2');
     commitDom.css({
@@ -43,28 +54,21 @@
       copyText(info);
     }
   }
+  // 展开收起diff
   function initExpandBtn() {
-    const expandBtn = $(
-      '<button id="__expand_btn">展开/收起 diff</button>'
-    ).css({
+    const expandBtn = $('<button id="__expand_btn">展开/收起 diff</button>').css({
       ...btnCss,
       marginRight: '8px',
     });
     let intervalTimer = setInterval(() => {
       if (document.querySelector('#__expand_btn')) return;
       if ($('.mr-version-menus-container').length) {
-        $('.mr-version-menus-container')
-          .css({ zIndex: '-1' })
-          .prepend(expandBtn);
+        $('.mr-version-menus-container').css({ zIndex: '-1' }).prepend(expandBtn);
 
         expandBtn.on('click', function () {
           const originIsClicked = $(this).attr('isclicked');
           const isClicked = originIsClicked == 'true';
-          $(this).attr(
-            'isclicked',
-            originIsClicked == 'true' ? 'false' : 'true'
-          );
-          console.log('触发我', originIsClicked, isClicked);
+          $(this).attr('isclicked', originIsClicked == 'true' ? 'false' : 'true');
           if (isClicked) {
             $('aside').map(function () {
               $(this).attr('style', '');
@@ -85,9 +89,8 @@
         clearInterval(intervalTimer);
       }
     }, 200);
-
-    // const asideWrapper = aside.parentNode;
   }
+
   window.addEventListener('load', function () {
     initCopyBtn();
     initExpandBtn();
@@ -98,15 +101,9 @@
       },
       true
     );
-    // $('.diffs-tab').on(
-    //   'click',
-    //   function () {
-    //     console.log('点击了jq');
-    //     // initExpandBtn();
-    //   },
-    //   true
-    // );
   });
+
+  // 复制文案
   function copyText(value) {
     if (value == null || value === '') return false;
     let textarea = document.createElement('textarea');
@@ -116,9 +113,7 @@
     const firstDiv = document.body.querySelector('div');
     firstDiv.parentNode.insertBefore(textarea, firstDiv);
     textarea.focus();
-    textarea.setSelectionRange
-      ? textarea.setSelectionRange(0, textarea.value.length)
-      : textarea.select();
+    textarea.setSelectionRange ? textarea.setSelectionRange(0, textarea.value.length) : textarea.select();
     let result = document.execCommand('copy');
     firstDiv.parentNode.removeChild(textarea);
     return result;
