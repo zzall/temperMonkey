@@ -41,6 +41,7 @@
 // @match        *://greasyfork.org/*
 // @match        *://www.expressjs.com.cn/*
 // @match        *://confluence.babytree-inc.com/*
+// @match        *://space.babytree-inc.com/*
 // @match        *://plugins.jetbrains.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
@@ -101,6 +102,7 @@
     'hub.docker.com': 'input', // docker hub 市场搜索
     'code.visualstudio.com': 'input', // vscode api 搜索
     'confluence.babytree-inc.com': 'input', // confluence 搜索
+    'space.babytree-inc.com': 'input', // confluence 搜索
     'www.expressjs.com.cn': 'input', // express 搜索
     'greasyfork.org': 'input[type=search]', // greasyfork 搜索
     'www.runoob.com': '#s', // 菜鸟搜索
@@ -133,9 +135,7 @@
     juejin: {
       searchSelectorStr: 'input[type="search"]',
       cb: () => {
-        [...document.querySelector('.main-header').classList].includes(
-          'visible'
-        )
+        [...document.querySelector('.main-header').classList].includes('visible')
           ? null
           : document.querySelector('.main-header').classList.add('visible');
         document.querySelector('input[type="search"]').focus();
@@ -159,35 +159,27 @@
     ],
     hellogithub: {
       cb: () => {
-        const inputEl =
-          document.querySelector('#search-input') ||
-          document.querySelector('#dashboard_search');
+        const inputEl = document.querySelector('#search-input') || document.querySelector('#dashboard_search');
         if (inputEl) {
           inputEl.focus();
         } else {
           const homeEl = document.querySelector('.pure-menu-link');
           homeEl.click();
           setTimeout(() => {
-            const inputEl =
-              document.querySelector('#search-input') ||
-              document.querySelector('#dashboard_search');
+            const inputEl = document.querySelector('#search-input') || document.querySelector('#dashboard_search');
             inputEl.focus();
           }, 500);
         }
       },
       escCb() {
-        const inputEl =
-          document.querySelector('#search-input') ||
-          document.querySelector('#dashboard_search');
+        const inputEl = document.querySelector('#search-input') || document.querySelector('#dashboard_search');
         if (inputEl) {
           inputEl.blur();
         } else {
           const homeEl = document.querySelector('.pure-menu-link');
           homeEl.click();
           setTimeout(() => {
-            const inputEl =
-              document.querySelector('#search-input') ||
-              document.querySelector('#dashboard_search');
+            const inputEl = document.querySelector('#search-input') || document.querySelector('#dashboard_search');
             inputEl.blur();
           }, 500);
         }
@@ -198,10 +190,7 @@
     react: '#algolia-doc-search', // react 官网搜索
     'eslint.org': '#search', // eslint.org 搜索
     prettier: '#search_input_react', // prettier.io 搜索
-    'github.com': [
-      '.application-main input[type=search]',
-      '.application-main input[type=text]',
-    ], // github search your repositories
+    'github.com': ['.application-main input[type=search]', '.application-main input[type=text]'], // github search your repositories
     // 'github.com': 'input.js-your-repositories-search', // github search your repositories
     'docs.github.com': 'input[type=search]', // github search your repositories
     // 该写翻译中英文了
@@ -263,16 +252,10 @@
     document.onkeydown = function (event) {
       var e = event || window.event;
       const generateMainChild = (href, val) => {
-        const {
-          metaKey,
-          isESCblur,
-          keyCode,
-          isPreventDefault,
-          searchSelectorStr,
-          cb,
-          escCb,
-          preFocusEvent,
-        } = { ...defaultOpts, ...val };
+        const { metaKey, isESCblur, keyCode, isPreventDefault, searchSelectorStr, cb, escCb, preFocusEvent } = {
+          ...defaultOpts,
+          ...val,
+        };
         const isMetaKey = e.metaKey && metaKey;
         const isEqualKeyCode = e.keyCode == keyCode;
         if (isMetaKey && isEqualKeyCode) {
@@ -281,9 +264,7 @@
             if (searchSelectorStr) {
               const searchCommonDom =
                 searchSelectorStr instanceof Array
-                  ? searchSelectorStr
-                      .map(selector => document.querySelector(selector))
-                      .find(Boolean)
+                  ? searchSelectorStr.map(selector => document.querySelector(selector)).find(Boolean)
                   : document.querySelector(searchSelectorStr);
               console.log('searchCommonDom', searchCommonDom);
               preFocusEvent && preFocusEvent(searchCommonDom);
@@ -348,10 +329,7 @@
     const originHrefBase = window.location.href.split('?')[0];
     const originParamsObj = getUrlParams();
     const newObj = { ...originParamsObj, ...obj };
-    const searchStr = Object.entries(newObj).reduce(
-      (pre, cur) => pre + `${cur[0]}=${cur[1]}&`,
-      ''
-    );
+    const searchStr = Object.entries(newObj).reduce((pre, cur) => pre + `${cur[0]}=${cur[1]}&`, '');
     return `${originHrefBase}?${searchStr.slice(0, -1)}`;
   };
 })();
