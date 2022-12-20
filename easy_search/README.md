@@ -64,6 +64,7 @@
 * 菜鸟搜索
 * confluence搜索
 * gitool搜索
+* baobaoshu npm搜索
 
 
 ### 入口
