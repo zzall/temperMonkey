@@ -2,7 +2,7 @@
 // @name         gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块，便捷选择commit信息创建pr
 // @name:zh-CN   gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块，便捷选择commit信息创建pr
 // @namespace    http://tampermonkey.net/
-// @version      0.4.2
+// @version      0.4.3
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/gitlab_helper/index.js
 // @description  1.一键复制url与commit信息；2.一键展开收起diff模块
 // @author       zzailianlian
@@ -93,10 +93,12 @@
             });
             $('aside').eq(0).parent().attr('style', '');
             $('aside').eq(0).next().attr('style', '');
+            $('.diff-files-holder').attr('style', '');
           } else {
             $('aside').map(function () {
               $(this).css({ width: 0 });
             });
+            $('.diff-files-holder').attr('style', 'max-width:unset');
             $('aside').eq(0).parent().css({ paddingLeft: 0 });
             $('aside')
               .eq(0)
