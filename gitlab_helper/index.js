@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块
-// @name:zh-CN   gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块
+// @name         gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块，便捷选择commit信息创建pr
+// @name:zh-CN   gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块，便捷选择commit信息创建pr
 // @namespace    http://tampermonkey.net/
-// @version      0.3.2
+// @version      0.4.2
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/gitlab_helper/index.js
 // @description  1.一键复制url与commit信息；2.一键展开收起diff模块
 // @author       zzailianlian
@@ -18,36 +18,55 @@
 
 (function () {
   'use strict';
-  const btnCss = {
-    borderRadius: '8px',
-    padding: '4px 12px',
-    background: 'white',
-    fontSize: '16px',
-    marginLeft: '4px',
-  };
+
+  // 因为有些dom是异步渲染的，因此需要用到loopObserver来确保dom刷新时执行指定操作
+  function loopObserver({ getObserver = () => {}, action = () => {} }) {
+    const interval = setInterval(() => {
+      const observerRecords = getObserver();
+      if (observerRecords && observerRecords.length > 0) {
+        action();
+        clearInterval(interval);
+      }
+    }, 200);
+  }
 
   // commit列表
   function initCommitList() {
-    const parentNode = document.querySelector('.form-group [for=merge_request_title]').parentElement;
-    const commitList = document.querySelectorAll('li .commit').map(dom => ({
-      commitContent: dom.querySelector('.commit-row-message').innerText,
-      commitAuthor: dom.querySelector('.commit-author-link').innerText,
-    }));
+    loopObserver({
+      getObserver: () => document.querySelectorAll('li .commit'),
+      action: () => {
+        const commitList = Array.from(document.querySelectorAll('li .commit'))?.map(dom => ({
+          commitContent: dom.querySelector('.commit-row-message').innerText,
+          commitAuthor: dom.querySelector('.commit-author-link').innerText,
+        }));
+        function insertCommentTitle(e) {
+          const innerCommitDom = e.target.querySelector('span') || e.target;
+          document.querySelector('input[required="required"]').value = innerCommitDom.innerText;
+        }
+        if (commitList.length <= 1) return;
+
+        document.querySelector('div.text-muted').innerHTML = `<div class="optional-commit-info-wrapper">${commitList
+          .map(
+            commit =>
+              `<div class="optional-commit-info gl-button btn btn-confirm gl-mr-2" style="margin-top:8px;">${commit.commitAuthor}：<span>${commit.commitContent}</span></div>`
+          )
+          .join('')}</div>`;
+        document.querySelector('.optional-commit-info-wrapper').onclick = insertCommentTitle;
+        console.log('commitList', commitList);
+      },
+    });
   }
+  // Array.from(document.querySelectorAll('a.commit-row-message')).map(item=>item.innerText)
 
   // 复制按钮
   function initCopyBtn() {
     const commitDom = $('.detail-page-description h2');
-    commitDom.css({
-      display: 'flex',
-      alignItems: 'center',
-    });
-    const btn = $('<button>复制</button>').css(btnCss);
+    const btn = $('<button class="gl-button btn btn-confirm gl-mr-2" style="margin-left:8px;">复制</button>');
     btn.on('click', copyUrlAndCommitInfo);
 
     const commitText = $('.detail-page-description h2:not(button)').text();
     commitDom.append(btn);
-    const info = `${window.location.href.match(/.+merge_requests\/\d+/)[0]}
+    const info = `${window.location.href.match(/.+merge_requests\/\d+/)?.[0]}
       ${commitText}`;
 
     function copyUrlAndCommitInfo() {
@@ -56,10 +75,9 @@
   }
   // 展开收起diff
   function initExpandBtn() {
-    const expandBtn = $('<button id="__expand_btn">展开/收起 diff</button>').css({
-      ...btnCss,
-      marginRight: '8px',
-    });
+    const expandBtn = $(
+      '<button id="__expand_btn" class="gl-button btn btn-confirm gl-mr-2" style="margin-right:8px;">展开/收起 diff</button>'
+    );
     let intervalTimer = setInterval(() => {
       if (document.querySelector('#__expand_btn')) return;
       if ($('.mr-version-menus-container').length) {
@@ -94,6 +112,7 @@
   window.addEventListener('load', function () {
     initCopyBtn();
     initExpandBtn();
+    initCommitList();
     document.querySelector('.diffs-tab').addEventListener(
       'click',
       function () {
