@@ -2,7 +2,7 @@
 // @name:zh-CN   快捷搜索-开发者搜索：覆盖掘金、react docs、google API、vscode插件市场搜索搜索、菜鸟搜索、docker hub、淘宝镜像官网、华为云镜像官网、jenkins、npmjs、mdn、ant.mobile.design、bilibili、github、prettier.io、等基本所有开发者常用网址
 // @name         快捷搜索-开发者搜索：掘金、react、google API、vscode插件市场、菜鸟搜索、docker、淘宝、华为云镜像官网、npmjs、mdn、antd、bilib、github等开发者常用网址
 // @namespace    http://tampermonkey.net/
-// @version      3.23.7
+// @version      3.24.7
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/easy_search/index.js
@@ -33,7 +33,6 @@
 // @match        *://npmmirror.com/*
 // @match        *://*.github.com/*
 // @match        *://hub.docker.com/*
-// @match        *://*.plt.babytree-inc.com/
 // @match        *://mirrors.huaweicloud.com/*
 // @match        *://jenkins3.plt.babytree-inc.com/*
 // @match        *://www.typescriptlang.org/*
@@ -97,14 +96,23 @@
     'mirrors.huaweicloud.com': {
       searchSelectorStr: '.devui-select-filter-input',
       preFocusEvent(target) {
-        console.log('target', target);
         target && (target.style.display = 'block');
       },
     },
     'hub.docker.com': 'input', // docker hub 市场搜索
     'npm.baobaoshu.com': 'input', // docker hub 市场搜索
     'code.visualstudio.com': 'input', // vscode api 搜索
-    'gitool.plt.babytree-inc.com': '#commit_id', // gitTool 搜索
+    'gitool.plt.babytree-inc.com': [
+      '#commit_id',
+      {
+        searchSelectorStr: '.btn-success',
+        keyCode: '13',
+        cb(btn) {
+          console.log('btn', btn);
+          !!btn && btn.click();
+        },
+      },
+    ], // gitTool 搜索
     'confluence.babytree-inc.com': 'input', // confluence 搜索
     'space.babytree-inc.com': 'input', // confluence 搜索
     'www.expressjs.com.cn': 'input', // express 搜索
@@ -113,7 +121,7 @@
     'www.typescriptlang.org': 'input', // ts官网
     'jenkins3.plt.babytree-inc.com': 'input', // jenins搜索
     'npmmirror.com': 'input', //npm镜像官网
-    '.plt.babytree-inc.com': '.main-search__input',
+    // '.plt.babytree-inc.com': '.main-search__input',
     'www.npmjs.com': {
       keyCode: 71,
       metaKey: true,
@@ -290,7 +298,8 @@
       Object.entries(config).map(item => {
         let [href, vals] = item;
         if (!window.location.origin.includes(href)) return;
-        console.log('href', href, window.location.origin.includes(href));
+        console.log('href', href);
+        console.log('vals', vals);
         if (typeof vals === 'string') {
           return generateMainChild(href, { searchSelectorStr: vals });
         }
