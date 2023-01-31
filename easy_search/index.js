@@ -2,7 +2,7 @@
 // @name:zh-CN   快捷搜索-开发者搜索：覆盖掘金、react docs、google API、vscode插件市场搜索搜索、菜鸟搜索、docker hub、淘宝镜像官网、华为云镜像官网、jenkins、npmjs、mdn、ant.mobile.design、bilibili、github、prettier.io、等基本所有开发者常用网址
 // @name         快捷搜索-开发者搜索：掘金、react、google API、vscode插件市场、菜鸟搜索、docker、淘宝、华为云镜像官网、npmjs、mdn、antd、bilib、github等开发者常用网址
 // @namespace    http://tampermonkey.net/
-// @version      3.26.8
+// @version      3.27.0
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/easy_search/index.js
@@ -44,6 +44,7 @@
 // @match        *://plugins.jetbrains.com/*
 // @match        *://gitool.plt.babytree-inc.com/*
 // @match        *://npm.baobaoshu.com/*
+// @match        *://greasyfork.org/zh-CN/scripts
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=npmjs.com
 // @grant        none
 // ==/UserScript==
