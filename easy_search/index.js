@@ -2,7 +2,7 @@
 // @name:zh-CN   快捷搜索-开发者搜索：覆盖掘金、react docs、google API、vscode插件市场搜索搜索、菜鸟搜索、docker hub、淘宝镜像官网、华为云镜像官网、jenkins、npmjs、mdn、ant.mobile.design、bilibili、github、prettier.io、等基本所有开发者常用网址
 // @name         快捷搜索-开发者搜索：掘金、react、google API、vscode插件市场、菜鸟搜索、docker、淘宝、华为云镜像官网、npmjs、mdn、antd、bilib、github等开发者常用网址
 // @namespace    http://tampermonkey.net/
-// @version      3.27.0
+// @version      3.27.1
 // @description  google translate、mobile.ant.mobile、掘金、npmjs、bilibibli、bootstracpCDN、splunk、google API 快捷搜索，更多快捷搜索
 // @license      MIT
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/easy_search/index.js
@@ -110,7 +110,6 @@
         searchSelectorStr: '.btn-success',
         keyCode: '13',
         cb(btn) {
-          console.log('btn', btn);
           !!btn && btn.click();
         },
       },
@@ -280,7 +279,6 @@
                 searchSelectorStr instanceof Array
                   ? searchSelectorStr.map(selector => document.querySelector(selector)).find(Boolean)
                   : document.querySelector(searchSelectorStr);
-              console.log('searchCommonDom', searchCommonDom);
               preFocusEvent && preFocusEvent(searchCommonDom);
               searchCommonDom && searchCommonDom.focus();
               return cb && cb(searchCommonDom);
@@ -300,8 +298,6 @@
       Object.entries(config).map(item => {
         let [href, vals] = item;
         if (!window.location.origin.includes(href)) return;
-        console.log('href', href);
-        console.log('vals', vals);
         if (typeof vals === 'string') {
           return generateMainChild(href, { searchSelectorStr: vals });
         }
