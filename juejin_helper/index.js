@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         juejin掘金小帮手
-// @name:zh-CN   掘金小帮手：掘金纯净复制、掘金纯净小册阅读
+// @name:zh-CN   掘金小帮手：掘金纯净复制、掘金纯净小册阅读、添加掘金快捷键（cmd+e/esc/p]进入编辑模式/返回上一页/发布文章）、hover自动拉出头像菜单
 // @namespace    http://tampermonkey.net/
-// @version      0.3.0
+// @version      0.4.0
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/juejin_helper/index.js
-// @description  掘金纯净复制、掘金纯净小册阅读
+// @description  掘金小帮手：掘金纯净复制、掘金纯净小册阅读、添加掘金快捷键（cmd+e/esc/p]进入编辑模式/返回上一页/发布文章）、hover自动拉出头像菜单
 // @author       zzailianlian
 // @require      https://code.jquery.com/jquery-3.5.1.min.js
 // @match        *://juejin.cn/*
@@ -19,14 +19,6 @@
 
 (function () {
   'use strict';
-
-  // 复制去除后缀
-  [...document.querySelectorAll('*')].forEach(
-    item =>
-      (item.oncopy = function (e) {
-        e.stopPropagation();
-      })
-  );
 
   // 沉浸式小册阅读
   const openJuejinPamphlethelper = () => {
@@ -139,32 +131,99 @@
     }
   };
 
+  //
+
   window.onload = () => {
-    var _wr = function (type) {
-      var orig = history[type];
-      return function () {
-        var rv = orig.apply(this, arguments);
-        var e = new Event(type);
-        e.arguments = arguments;
-        window.dispatchEvent(e);
-        return rv;
-      };
-    };
-
-    window.addEventListener('replaceState', function (e) {
-      console.log('监听自定义replaceState', e);
-      openJuejinPamphlethelper();
-    });
-    window.addEventListener('pushState', function (e) {
-      console.log('监听自定义pushState', e);
-      openJuejinPamphlethelper();
-    });
-
-    history.pushState = _wr('pushState');
-    history.replaceState = _wr('replaceState');
-
+    // 复制去除后缀
+    [...document.querySelectorAll('*')].forEach(
+      item =>
+        (item.oncopy = function (e) {
+          e.stopPropagation();
+        })
+    );
+    // 开启沉浸式小册阅读
     openJuejinPamphlethelper();
+    // 允许鼠标移动到头像后自动弹出来菜单
+    avatarHoverHandle();
+    // 注册掘金快捷键
+    dispatchKeyCode();
   };
+
+  function dispatchKeyCode() {
+    // 键入 cmd+e 进入文章编辑页面
+    if (/juejin.cn\/post/.test(window.location.href)) {
+      document.onkeydown = function (event) {
+        var e = event || window.event;
+        const isMetaKey = e.metaKey;
+        // 69是esc
+        if (isMetaKey && e.keyCode === 69) {
+          document.querySelector('.edit-btn').click();
+        }
+      };
+    }
+    if (/juejin.cn\/editor\/drafts/.test(window.location.href)) {
+      document.onkeydown = function (event) {
+        const isFocusEditor = document.activeElement.tagName === 'TEXTAREA';
+        var e = event || window.event;
+
+        const isMetaKey = e.metaKey;
+        // 键入 cmd+esc 返回上一页 27是esc
+        if (isMetaKey && e.keyCode === 27) {
+          history.back();
+        }
+        // 键入 cmd+p 开始发布 80是p
+        if (isMetaKey && e.keyCode === 80) {
+          e.preventDefault();
+          document.querySelector('.publish-popup .xitu-btn').click();
+        }
+      };
+    }
+  }
+
+  // 重写pushState与repalceState方法来监听url变化
+  var _wr = function (type) {
+    var orig = history[type];
+    return function () {
+      var rv = orig.apply(this, arguments);
+      var e = new Event(type);
+      e.arguments = arguments;
+      window.dispatchEvent(e);
+      return rv;
+    };
+  };
+
+  window.addEventListener('replaceState', function (e) {
+    console.log('监听自定义replaceState', e);
+    openJuejinPamphlethelper();
+  });
+  window.addEventListener('pushState', function (e) {
+    console.log('监听自定义pushState', e);
+    openJuejinPamphlethelper();
+  });
+
+  history.pushState = _wr('pushState');
+  history.replaceState = _wr('replaceState');
+
+  // 头像hover事件
+  function avatarHoverHandle() {
+    const avatarImg = document.querySelector('.avatar');
+    const avatarMenuItem = document.querySelector('.nav-item.menu');
+    const getIsAvatarMenuShow = () => document.querySelector('.avatar-wrapper').nextElementSibling;
+    function mouseenterHandle() {
+      console.log('及惹怒');
+      if (!getIsAvatarMenuShow()) {
+        avatarImg.click();
+      }
+    }
+    function mouseleaveHandle() {
+      console.log('出来');
+      if (getIsAvatarMenuShow()) {
+        avatarImg.click();
+      }
+    }
+    avatarMenuItem && avatarMenuItem.addEventListener('mouseenter', mouseenterHandle);
+    avatarMenuItem && avatarMenuItem.addEventListener('mouseleave', mouseleaveHandle);
+  }
 
   function loopDom({ observer, action = () => {}, unset = () => {} }, type = 'active') {
     console.log('observer', observer());
