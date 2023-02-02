@@ -2,7 +2,7 @@
 // @name         juejin掘金小帮手
 // @name:zh-CN   掘金小帮手：掘金纯净复制、掘金纯净小册阅读
 // @namespace    http://tampermonkey.net/
-// @version      0.2.1
+// @version      0.3.0
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/juejin_helper/index.js
 // @description  掘金纯净复制、掘金纯净小册阅读
 // @author       zzailianlian
@@ -28,69 +28,113 @@
       })
   );
 
-  function loopDom({ observer, action = () => {} }) {
-    console.log('observer', observer());
-    const interval = setInterval(() => {
-      console.log('observer2', observer());
-      if (observer()) {
-        action();
-        document.title = 'LinStaMIDIAccess';
-        clearInterval(interval);
-      }
-    }, 200);
-  }
-
   // 沉浸式小册阅读
   const openJuejinPamphlethelper = () => {
     if (/juejin\.[cnim]{2}.+\/section/.test(window.location.href)) {
-      loopDom({
-        observer: () => document.querySelector('.book-summary'),
-        action: () => {
-          console.log('触发book-summary的action', document.querySelector('.book-summary'));
-          document.querySelector('.book-summary').style.display = 'none';
-          console.log(
-            '触发book-summary的action',
-            document.querySelector('.book-summary'),
-            document.querySelector('.book-summary').style.display
-          );
+      // 处理沉浸式时要处理的dom列表
+      const displayDoms = [
+        {
+          observer: () => document.querySelector('.book-summary'),
+          action: () => {
+            document.querySelector('.book-summary').style.display = 'none';
+          },
+          unset: () => {
+            document.querySelector('.book-summary').style = '';
+          },
         },
-      });
-      loopDom({
-        observer: () => document.querySelector('.book-content__header'),
-        action: () => {
-          document.querySelector('.book-content__header').style.display = 'none';
+        {
+          observer: () => document.querySelector('.book-content__header'),
+          action: () => {
+            document.querySelector('.book-content__header').style.display = 'none';
+          },
+          unset: () => {
+            document.querySelector('.book-content__header').style = '';
+          },
         },
-      });
-      loopDom({
-        observer: () => document.querySelector('.book-comments'),
-        action: () => {
-          document.querySelector('.book-comments').style.display = 'none';
+        {
+          observer: () => document.querySelector('.book-comments'),
+          action: () => {
+            document.querySelector('.book-comments').style.display = 'none';
+          },
+          unset: () => {
+            document.querySelector('.book-comments').style = '';
+          },
         },
-      });
-      loopDom({
-        observer: () => document.querySelector('.book-body'),
-        action: () => {
-          document.querySelector('.book-body').style.paddingTop = '0';
+        {
+          observer: () => document.querySelector('.book-body'),
+          action: () => {
+            document.querySelector('.book-body').style.paddingTop = '0';
+          },
+          unset: () => {
+            document.querySelector('.book-body').style = '';
+          },
         },
-      });
-      loopDom({
-        observer: () => document.querySelector('.book-content'),
-        action: () => {
-          document.querySelector('.book-content').style.marginLeft = '0';
+        {
+          observer: () => document.querySelector('.book-content'),
+          action: () => {
+            document.querySelector('.book-content').style.marginLeft = '0';
+          },
+          unset: () => {
+            document.querySelector('.book-content').style = '';
+          },
         },
-      });
-      loopDom({
-        observer: () => document.querySelector('.book-section-view'),
-        action: () => {
-          document.querySelector('.book-section-view').style.maxWidth = 'unset';
+        {
+          observer: () => document.querySelector('.book-section-view'),
+          action: () => {
+            document.querySelector('.book-section-view').style.maxWidth = 'unset';
+          },
+          unset: () => {
+            document.querySelector('.book-section-view').style = '';
+          },
         },
-      });
+        {
+          observer: () => document.querySelector('.book-handle'),
+          action: () => {
+            document.querySelector('.book-handle').style.maxWidth = 'unset';
+            document.querySelector('.book-handle').style.marginLeft = '0';
+          },
+          unset: () => {
+            document.querySelector('.book-handle').style = '';
+          },
+        },
+      ];
+
+      // 沉浸式控制按钮
       loopDom({
         observer: () => document.querySelector('.book-handle'),
         action: () => {
           document.querySelector('.book-handle').style.maxWidth = 'unset';
           document.querySelector('.book-handle').style.marginLeft = '0';
+
+          const bookHandle = document.querySelector('.book-handle');
+          let isTrigger = false;
+          const immersionBtn = document.createElement('div');
+          immersionBtn.innerHTML = '恢复';
+          immersionBtn.style = `background-color:#007fff;border-radius:50%;width:50px;height:50px;display:flex;justify-content:center;align-items:center;z-index:10;cursor:pointer;color:white;position:absolute;left:10px;font-size:14px;bottom:70px;`;
+          immersionBtn.onclick = function () {
+            console.log('isTrigger', isTrigger);
+            if (isTrigger) {
+              // 沉浸阅读界面
+              displayDoms.map(dom => {
+                loopDom(dom, 'active');
+              });
+              immersionBtn.innerHTML = '恢复';
+            } else {
+              // 默认展示界面
+              displayDoms.map(dom => {
+                loopDom(dom, 'disabled');
+              });
+              immersionBtn.innerHTML = '沉浸';
+            }
+            isTrigger = !isTrigger;
+          };
+          immersionBtn.classList.add('step-btn', 'step-btn--prev');
+          bookHandle.insertBefore(immersionBtn, bookHandle.firstChild);
         },
+      });
+
+      displayDoms.map(dom => {
+        loopDom(dom, 'active');
       });
     }
   };
@@ -108,11 +152,11 @@
     };
 
     window.addEventListener('replaceState', function (e) {
-      console.log('监听自定义replaceState');
+      console.log('监听自定义replaceState', e);
       openJuejinPamphlethelper();
     });
     window.addEventListener('pushState', function (e) {
-      console.log('监听自定义pushState');
+      console.log('监听自定义pushState', e);
       openJuejinPamphlethelper();
     });
 
@@ -121,4 +165,27 @@
 
     openJuejinPamphlethelper();
   };
+
+  function loopDom({ observer, action = () => {}, unset = () => {} }, type = 'active') {
+    console.log('observer', observer());
+    const hadnler = () => {
+      if (type === 'active') {
+        action();
+      } else {
+        unset();
+      }
+      // 干掉document的title，让阅读不被others打扰
+      document.title = 'LinStaMIDIAccess';
+    };
+    if (observer()) {
+      hadnler();
+    }
+    const interval = setInterval(() => {
+      console.log('observer2', observer());
+      if (observer()) {
+        hadnler();
+        clearInterval(interval);
+      }
+    }, 200);
+  }
 })();
