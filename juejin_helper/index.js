@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         掘金小帮手：掘金纯净复制、掘金纯净小册阅读、添加掘金快捷键（cmd+e/esc/p]进入编辑模式/返回上一页/发布文章）、hover自动拉出头像菜单
+// @name         juejin掘金小帮手
 // @name:zh-CN   掘金小帮手：掘金纯净复制、掘金纯净小册阅读、添加掘金快捷键（cmd+e/esc/p]进入编辑模式/返回上一页/发布文章）、hover自动拉出头像菜单
 // @namespace    http://tampermonkey.net/
-// @version      0.5.1
+// @version      0.5.0
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/juejin_helper/index.js
 // @description  掘金小帮手：掘金纯净复制、掘金纯净小册阅读、添加掘金快捷键（cmd+e/esc/p]进入编辑模式/返回上一页/发布文章）、hover自动拉出头像菜单
 // @author       zzailianlian
