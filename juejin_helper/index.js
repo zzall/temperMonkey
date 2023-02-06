@@ -2,7 +2,7 @@
 // @name         juejin掘金小帮手
 // @name:zh-CN   掘金小帮手：掘金纯净复制、掘金纯净小册阅读、添加掘金快捷键（cmd+e/esc/p]进入编辑模式/返回上一页/发布文章）、hover自动拉出头像菜单
 // @namespace    http://tampermonkey.net/
-// @version      0.5.0
+// @version      0.5.1
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/juejin_helper/index.js
 // @description  掘金小帮手：掘金纯净复制、掘金纯净小册阅读、添加掘金快捷键（cmd+e/esc/p]进入编辑模式/返回上一页/发布文章）、hover自动拉出头像菜单
 // @author       zzailianlian
@@ -23,9 +23,6 @@
   // 沉浸式小册阅读
   const openJuejinPamphlethelper = () => {
     if (/juejin\.[cnim]{2}.+\/section/.test(window.location.href)) {
-      // 干掉document的title，让阅读不被others打扰
-      document.title = 'LinStaMIDIAccess';
-
       // 处理沉浸式时要处理的dom列表
       const displayDoms = [
         {
@@ -98,6 +95,9 @@
       loopDom({
         observer: () => document.querySelector('.book-handle'),
         action: () => {
+          // 干掉document的title，让阅读不被others打扰
+          document.title = 'LinStaMIDIAccess';
+
           document.querySelector('.book-handle').style.maxWidth = 'unset';
           document.querySelector('.book-handle').style.marginLeft = '0';
 
@@ -137,6 +137,7 @@
   //
 
   window.onload = () => {
+    console.log('我是onload');
     // 复制去除后缀
     [...document.querySelectorAll('*')].forEach(
       item =>
