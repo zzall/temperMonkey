@@ -2,7 +2,7 @@
 // @name         juejin掘金小帮手
 // @name:zh-CN   掘金小帮手：掘金纯净复制、掘金纯净小册阅读、添加掘金快捷键（cmd+e/esc/p]进入编辑模式/返回上一页/发布文章）、hover自动拉出头像菜单
 // @namespace    http://tampermonkey.net/
-// @version      0.5.1
+// @version      0.6.0
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/juejin_helper/index.js
 // @description  掘金小帮手：掘金纯净复制、掘金纯净小册阅读、添加掘金快捷键（cmd+e/esc/p]进入编辑模式/返回上一页/发布文章）、hover自动拉出头像菜单
 // @author       zzailianlian
@@ -23,73 +23,81 @@
   // 沉浸式小册阅读
   const openJuejinPamphlethelper = () => {
     if (/juejin\.[cnim]{2}.+\/section/.test(window.location.href)) {
-      // 处理沉浸式时要处理的dom列表
-      const displayDoms = [
-        {
-          observer: () => document.querySelector('.book-summary'),
-          action: () => {
-            document.querySelector('.book-summary').style.display = 'none';
+      // 沉浸式处理
+      function immersion(type = 'active') {
+        // 处理沉浸式时要处理的dom列表
+        const displayDoms = [
+          {
+            observer: () => document.querySelector('.book-summary'),
+            action: () => {
+              document.querySelector('.book-summary').style.display = 'none';
+            },
+            unset: () => {
+              document.querySelector('.book-summary').style = '';
+            },
           },
-          unset: () => {
-            document.querySelector('.book-summary').style = '';
+          {
+            observer: () => document.querySelector('.book-content__header'),
+            action: () => {
+              document.querySelector('.book-content__header').style.display = 'none';
+            },
+            unset: () => {
+              document.querySelector('.book-content__header').style = '';
+            },
           },
-        },
-        {
-          observer: () => document.querySelector('.book-content__header'),
-          action: () => {
-            document.querySelector('.book-content__header').style.display = 'none';
+          {
+            observer: () => document.querySelector('.book-comments'),
+            action: () => {
+              document.querySelector('.book-comments').style.display = 'none';
+            },
+            unset: () => {
+              document.querySelector('.book-comments').style = '';
+            },
           },
-          unset: () => {
-            document.querySelector('.book-content__header').style = '';
+          {
+            observer: () => document.querySelector('.book-body'),
+            action: () => {
+              document.querySelector('.book-body').style.paddingTop = '0';
+            },
+            unset: () => {
+              document.querySelector('.book-body').style = '';
+            },
           },
-        },
-        {
-          observer: () => document.querySelector('.book-comments'),
-          action: () => {
-            document.querySelector('.book-comments').style.display = 'none';
+          {
+            observer: () => document.querySelector('.book-content'),
+            action: () => {
+              document.querySelector('.book-content').style.marginLeft = '0';
+            },
+            unset: () => {
+              document.querySelector('.book-content').style = '';
+            },
           },
-          unset: () => {
-            document.querySelector('.book-comments').style = '';
+          {
+            observer: () => document.querySelector('.book-section-view'),
+            action: () => {
+              document.querySelector('.book-section-view').style.maxWidth = 'unset';
+            },
+            unset: () => {
+              document.querySelector('.book-section-view').style = '';
+            },
           },
-        },
-        {
-          observer: () => document.querySelector('.book-body'),
-          action: () => {
-            document.querySelector('.book-body').style.paddingTop = '0';
+          {
+            observer: () => document.querySelector('.book-handle'),
+            action: () => {
+              document.querySelector('.book-handle').style.maxWidth = 'unset';
+              document.querySelector('.book-handle').style.marginLeft = '0';
+            },
+            unset: () => {
+              document.querySelector('.book-handle').style = '';
+            },
           },
-          unset: () => {
-            document.querySelector('.book-body').style = '';
-          },
-        },
-        {
-          observer: () => document.querySelector('.book-content'),
-          action: () => {
-            document.querySelector('.book-content').style.marginLeft = '0';
-          },
-          unset: () => {
-            document.querySelector('.book-content').style = '';
-          },
-        },
-        {
-          observer: () => document.querySelector('.book-section-view'),
-          action: () => {
-            document.querySelector('.book-section-view').style.maxWidth = 'unset';
-          },
-          unset: () => {
-            document.querySelector('.book-section-view').style = '';
-          },
-        },
-        {
-          observer: () => document.querySelector('.book-handle'),
-          action: () => {
-            document.querySelector('.book-handle').style.maxWidth = 'unset';
-            document.querySelector('.book-handle').style.marginLeft = '0';
-          },
-          unset: () => {
-            document.querySelector('.book-handle').style = '';
-          },
-        },
-      ];
+        ];
+        displayDoms.map(dom => {
+          loopDom(dom, type);
+        });
+      }
+      const openImmersion = () => immersion('active');
+      const closeImmersion = () => immersion('disabled');
 
       // 沉浸式控制按钮
       loopDom({
@@ -110,15 +118,11 @@
             console.log('isTrigger', isTrigger);
             if (isTrigger) {
               // 沉浸阅读界面
-              displayDoms.map(dom => {
-                loopDom(dom, 'active');
-              });
+              openImmersion();
               immersionBtn.innerHTML = '恢复';
             } else {
               // 默认展示界面
-              displayDoms.map(dom => {
-                loopDom(dom, 'disabled');
-              });
+              closeImmersion('disabled');
               immersionBtn.innerHTML = '沉浸';
             }
             isTrigger = !isTrigger;
@@ -128,9 +132,8 @@
         },
       });
 
-      displayDoms.map(dom => {
-        loopDom(dom, 'active');
-      });
+      // 沉浸式展示页面
+      openImmersion();
     }
   };
 
