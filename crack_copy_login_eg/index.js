@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         破解禁止登陆，破解禁止复制
-// @name:zh-CN   破解禁止登陆，破解禁止复制
+// @name         破解复制登录、去除复制后缀
+// @name:zh-CN   破解复制登录、去除复制后缀
 // @namespace    http://tampermonkey.net/
 // @version      0.2.0
 // @description  破解禁止登陆，破解禁止复制
