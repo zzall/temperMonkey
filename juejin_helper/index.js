@@ -2,7 +2,7 @@
 // @name         juejin掘金小帮手
 // @name:zh-CN   掘金小帮手：掘金纯净复制、掘金纯净小册阅读、添加掘金快捷键（cmd+e/esc/p]进入编辑模式/返回上一页/发布文章）、hover自动拉出头像菜单
 // @namespace    http://tampermonkey.net/
-// @version      0.4.0
+// @version      0.4.1
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/juejin_helper/index.js
 // @description  掘金小帮手：掘金纯净复制、掘金纯净小册阅读、添加掘金快捷键（cmd+e/esc/p]进入编辑模式/返回上一页/发布文章）、hover自动拉出头像菜单
 // @author       zzailianlian
@@ -134,6 +134,7 @@
   //
 
   window.onload = () => {
+    console.log('onload', '我是onload');
     // 复制去除后缀
     [...document.querySelectorAll('*')].forEach(
       item =>
@@ -194,11 +195,17 @@
 
   window.addEventListener('replaceState', function (e) {
     console.log('监听自定义replaceState', e);
+    // 开启沉浸式小册阅读
     openJuejinPamphlethelper();
+    // 允许鼠标移动到头像后自动弹出来菜单
+    avatarHoverHandle();
   });
   window.addEventListener('pushState', function (e) {
     console.log('监听自定义pushState', e);
+    // 开启沉浸式小册阅读
     openJuejinPamphlethelper();
+    // 允许鼠标移动到头像后自动弹出来菜单
+    avatarHoverHandle();
   });
 
   history.pushState = _wr('pushState');
@@ -206,27 +213,29 @@
 
   // 头像hover事件
   function avatarHoverHandle() {
-    const avatarImg = document.querySelector('.avatar');
-    const avatarMenuItem = document.querySelector('.nav-item.menu');
-    const getIsAvatarMenuShow = () => document.querySelector('.avatar-wrapper').nextElementSibling;
-    function mouseenterHandle() {
-      console.log('及惹怒');
-      if (!getIsAvatarMenuShow()) {
-        avatarImg.click();
-      }
-    }
-    function mouseleaveHandle() {
-      console.log('出来');
-      if (getIsAvatarMenuShow()) {
-        avatarImg.click();
-      }
-    }
-    avatarMenuItem && avatarMenuItem.addEventListener('mouseenter', mouseenterHandle);
-    avatarMenuItem && avatarMenuItem.addEventListener('mouseleave', mouseleaveHandle);
+    loopDom({
+      observer: () => document.querySelector('.avatar') && document.querySelector('.nav-item.menu'),
+      action: () => {
+        const avatarImg = document.querySelector('.avatar');
+        const avatarMenuItem = document.querySelector('.nav-item.menu');
+        const getIsAvatarMenuShow = () => document.querySelector('.avatar-wrapper').nextElementSibling;
+        function mouseenterHandle() {
+          if (!getIsAvatarMenuShow()) {
+            avatarImg.click();
+          }
+        }
+        function mouseleaveHandle() {
+          if (getIsAvatarMenuShow()) {
+            avatarImg.click();
+          }
+        }
+        avatarMenuItem && avatarMenuItem.addEventListener('mouseenter', mouseenterHandle);
+        avatarMenuItem && avatarMenuItem.addEventListener('mouseleave', mouseleaveHandle);
+      },
+    });
   }
 
   function loopDom({ observer, action = () => {}, unset = () => {} }, type = 'active') {
-    console.log('observer', observer());
     const hadnler = () => {
       if (type === 'active') {
         action();
@@ -240,7 +249,6 @@
       hadnler();
     }
     const interval = setInterval(() => {
-      console.log('observer2', observer());
       if (observer()) {
         hadnler();
         clearInterval(interval);
