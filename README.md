@@ -1,15 +1,29 @@
 # temperMonkey
+
 油猴插件合集
 
 
 ## cms_mangement
-cms内部管理辅助工具
+
+cms内部管理辅助工具，我个人工作上要用到的，大家可以忽略
 
 ## link_adress_redirect
+
 去掉跳转的各个中间页，直接跳转到指定页面
 目前支持：
+
 * 简书
 * 掘金
+
+## juejin_helper
+
+* 添加掘金快捷键
+  * `cmd+e`进入文章编辑模式
+  * `cmd+esc`从编辑模式返回到上一页
+  * `cmd+p`发布或者更新文章
+* 鼠标hover到个人头像自动弹出来menu菜单
+* 掘金`cmd+g`搜索可以结合下面的插件`easy_search`一起使用
+* 掘金小册沉浸式阅读，可以选择开启或者关闭
 
 ## easy_search
 
@@ -24,11 +38,11 @@ cms内部管理辅助工具
 
 * mac：cmd + g
 * windows： windows + g
-聚焦到谷歌翻译源文件textarea
+  聚焦到谷歌翻译源文件textarea
 
 * mac：cmd + f
 * windows： windows + f
-切换谷歌翻译
+  切换谷歌翻译
   * 从中文切换到英文
   * 再次触发从英文切换到中文
   * 循环从英文到中文的转换
@@ -52,6 +66,7 @@ cms内部管理辅助工具
 
 * mac：cmd + g
 * windows： windows + g
+
 #### bilibili搜索页的搜索框定位
 
 * mac：cmd + g
@@ -80,6 +95,7 @@ cms内部管理辅助工具
 
 
 ### 入口
+
 * [Greasy Fork](https://greasyfork.org/zh-CN/scripts/445659-quickly-search)
 
 
@@ -88,6 +104,7 @@ cms内部管理辅助工具
 ### 给贡献者
 
 如果想要提供贡献，请依据最新的方式提供配置
+
 ```javascript
 /**
  * config是一个基础对象
@@ -145,6 +162,7 @@ const config = {
 }
 
 ```
+
 脚本将基于该`config`生成指定监听事件
 
 
