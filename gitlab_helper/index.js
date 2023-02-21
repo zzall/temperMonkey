@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块，便捷选择commit信息创建pr
-// @name:zh-CN   gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块，便捷选择commit信息创建pr
+// @name         gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块，便捷选择commit信息创建pr，自动设置指派人和review人
+// @name:zh-CN   gitlab小帮手:一键复制url与commit信息，一键展开收起diff模块，便捷选择commit信息创建pr，自动设置指派人和review人
 // @namespace    http://tampermonkey.net/
-// @version      0.4.3
+// @version      0.5.0
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/gitlab_helper/index.js
-// @description  1.一键复制url与commit信息；2.一键展开收起diff模块
+// @description  1.一键复制url与commit信息；2.一键展开收起diff模块；3.自动设置指派人和review人
 // @author       zzailianlian
 // @require      https://unpkg.com/clipboard@2.0.11/dist/clipboard.min.js
 // @match        *://gitlab.babytree-inc.com/**/merge_requests/*
@@ -23,7 +23,7 @@
   function loopObserver({ getObserver = () => {}, action = () => {} }) {
     const interval = setInterval(() => {
       const observerRecords = getObserver();
-      if (observerRecords && observerRecords.length > 0) {
+      if (observerRecords) {
         action();
         clearInterval(interval);
       }
@@ -44,15 +44,17 @@
           document.querySelector('input[required="required"]').value = innerCommitDom.innerText;
         }
         if (commitList.length <= 1) return;
-
-        document.querySelector('div.text-muted').innerHTML = `<div class="optional-commit-info-wrapper">${commitList
-          .map(
-            commit =>
-              `<div class="optional-commit-info gl-button btn btn-confirm gl-mr-2" style="margin-top:8px;">${commit.commitAuthor}：<span>${commit.commitContent}</span></div>`
-          )
-          .join('')}</div>`;
-        document.querySelector('.optional-commit-info-wrapper').onclick = insertCommentTitle;
-        console.log('commitList', commitList);
+        if (document.querySelector('div.text-muted')) {
+          document.querySelector('div.text-muted').innerHTML = `<div class="optional-commit-info-wrapper">${commitList
+            .map(
+              commit =>
+                `<div class="optional-commit-info gl-button btn btn-confirm gl-mr-2" style="margin-top:8px;">${commit.commitAuthor}：<span>${commit.commitContent}</span></div>`
+            )
+            .join('')}</div>`;
+        }
+        if (document.querySelector('.optional-commit-info-wrapper')) {
+          document.querySelector('.optional-commit-info-wrapper').onclick = insertCommentTitle;
+        }
       },
     });
   }
@@ -114,7 +116,6 @@
   window.addEventListener('load', function () {
     initCopyBtn();
     initExpandBtn();
-    initCommitList();
     document.querySelector('.diffs-tab').addEventListener(
       'click',
       function () {
@@ -122,7 +123,54 @@
       },
       true
     );
+    initCommitList();
+    initAssignAndReviewer();
   });
+
+  // 更改assign跟reviewer的人
+  function initAssignAndReviewer() {
+    const assign = 'zhaoqian';
+    const reviewer = 'zhaoqian';
+    if (location.href.includes('merge_requests')) {
+      // Assign自动赋值
+      loopObserver({
+        getObserver: () => document.querySelector('.merge-request-assignee'),
+        action: () => {
+          document.querySelector('.merge-request-assignee button').click();
+          document.querySelector('.merge-request-assignee input[type="search"]').value = assign;
+          loopObserver({
+            getObserver: () =>
+              document.querySelectorAll('.merge-request-assignee .dropdown-content  a .dropdown-menu-user-username')
+                .length === 1,
+            action: () => {
+              document
+                .querySelector('.merge-request-assignee .dropdown-content  a .dropdown-menu-user-username')
+                .click();
+              // Reviewer自动赋值
+              loopObserver({
+                getObserver: () => document.querySelector('.merge-request-reviewer'),
+                action: () => {
+                  document.querySelector('.merge-request-reviewer button').click();
+                  document.querySelector('.merge-request-reviewer input[type="search"]').value = reviewer;
+                  loopObserver({
+                    getObserver: () =>
+                      document.querySelectorAll(
+                        '.merge-request-reviewer .dropdown-content  a .dropdown-menu-user-username'
+                      ).length === 1,
+                    action: () => {
+                      document
+                        .querySelector('.merge-request-reviewer .dropdown-content  a .dropdown-menu-user-username')
+                        .click();
+                    },
+                  });
+                },
+              });
+            },
+          });
+        },
+      });
+    }
+  }
 
   // 复制文案
   function copyText(value) {

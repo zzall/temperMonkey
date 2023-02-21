@@ -33,3 +33,8 @@ feat:优化老文章图片不显示
 ![多个commit信息选择提交pr](https://p.ipic.vip/7wxl4l.png)
 
 
+## 自动设置review人和assign人
+
+在打开mr页面的时候自动设置review人和assign人，方便跟gitlab hooks结合在群里通知艾特到人
+
+我这里基于个人需求，代码里写死了zhaoqian
