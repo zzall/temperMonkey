@@ -67,6 +67,7 @@
 * baobaoshu npm搜索
 * 知乎搜索
 * greasyfork 搜索
+* swiper 搜索
 ...
 
 
