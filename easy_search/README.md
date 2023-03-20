@@ -69,6 +69,7 @@
 * greasyfork 搜索
 * swiper 搜索
 * csdn 搜索
+* huaweicloud 搜索
 ...
 
 
