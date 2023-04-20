@@ -18,11 +18,19 @@
 (function () {
   'use strict';
 
-  // remove copyright statement when copying
-  [...document.querySelectorAll('*')].forEach(
-    item =>
-      (item.oncopy = function (e) {
+  [...document.querySelectorAll('*')].forEach(item => {
+    // 复制时删除版权声明，打破复制限制
+    item.oncopy = function (e) {
+      e.stopPropagation();
+    };
+    item.addEventListener(
+      'copy',
+      function (e) {
         e.stopPropagation();
-      })
-  );
+      },
+      true
+    );
+    // 全局可选择
+    item.style.setProperty('user-select', 'all');
+  });
 })();
