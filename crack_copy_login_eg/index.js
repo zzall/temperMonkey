@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name        Cracking replication login, removing replication suffixes, web page global Optional
+// @name        破解复制登录、去除复制后缀、网页全局可选
 // @name:en     Cracking replication login, removing replication suffixes, web page global Optional
 // @name:zh-CN   破解复制登录、去除复制后缀、网页全局可选
 // @description   You can circumvent the restrictions that prohibit login and replication. It allows you to copy and paste freely on web pages without being restricted by copyright notices.
 // @description:en     You can circumvent the restrictions that prohibit login and replication. It allows you to copy and paste freely on web pages without being restricted by copyright notices.
 // @description:zh-CN  可以破解禁止登录和复制的限制。它可以让你在网页上自由复制和粘贴，而不会受到版权声明的限制。
 // @namespace    http://tampermonkey.net/
-// @version      0.4.0
+// @version      0.5.0
 // @description  破解禁止登陆，破解禁止复制
 // @author       zzailianlian
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/crack_copy_login_eg/index.js
