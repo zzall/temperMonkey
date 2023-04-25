@@ -25,15 +25,14 @@
       // 在code区域右上角创建一个固定定位的div框
       const div = document.createElement('div');
       div.style.position = 'absolute';
-      div.style.top = '-22px';
+      div.style.top = '0';
+      // div.style.top = '-22px';
       div.style.left = '50%';
       div.style.minWidth = '24px';
       div.style.transform = 'translate(-50%,0)';
       div.style.padding = '2px 8px';
       div.style.borderRadius = '6px';
       div.setAttribute('new_add_crack_copy_login_eg', true);
-      // div.style.width = '100px';
-      // div.style.height = '100px';
       // div.style.backgroundColor = 'red';
       div.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
       div.style.color = 'white';
