@@ -6,7 +6,7 @@
 // @description:en     You can circumvent the restrictions that prohibit login and replication. It allows you to copy and paste freely on web pages without being restricted by copyright notices.
 // @description:zh-CN  可以破解禁止登录和复制的限制。它可以让你在网页上自由复制和粘贴，而不会受到版权声明的限制。
 // @namespace    http://tampermonkey.net/
-// @version      0.7.1
+// @version      0.7.2
 // @description  破解复制登录、去除复制后缀、网页全局可选、新增code标签代码复制
 // @author       zzailianlian
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/crack_copy_login_eg/index.js
@@ -34,13 +34,13 @@
       div.setAttribute('new_add_crack_copy_login_eg', true);
       // div.style.width = '100px';
       // div.style.height = '100px';
-      div.style.backgroundColor = 'red';
-      // div.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+      // div.style.backgroundColor = 'red';
+      div.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
       div.style.color = 'white';
       div.style.userSelect = 'none';
       div.style.cursor = 'pointer';
       div.innerText = '复制';
-      // div.style.display = 'none';
+      div.style.display = 'none';
       div.style.whiteSpace = 'nowrap';
       div.onclick = () => {
         copyText(item.innerText.slice(0, -2));
