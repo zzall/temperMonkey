@@ -97,14 +97,16 @@
       70 f
       13 回车
       27 esc
+
+
+  * Q: 如果我想要先查找dom1，再查找dom2，应该怎么写？
+    A1: 'www.baidu.com': [['input1','input2']]
+    A2: 或者：
+        'www.baidu.com':{
+          searchSelectorStr: [['input1','input2']]
+        }
    */
   const config = {
-    'mirrors.huaweicloud.com': {
-      searchSelectorStr: '.devui-select-filter-input',
-      preFocusEvent(target) {
-        target && (target.style.display = 'block');
-      },
-    },
     'hub.docker.com': 'input', // docker hub 市场搜索
     'www.swiper.com.cn': [
       'input[type="text"]',
@@ -117,7 +119,15 @@
       },
     ], // swiper 搜索
     'greasyfork.org/zh-CN/scripts': 'input[type="search"]', // Greasy Fork 市场搜索
-    'huaweicloud.com': 'input', // 华为cloud官网搜索
+    'huaweicloud.com': [
+      ['input[type="password"]', 'input'],
+      {
+        searchSelectorStr: '.devui-select-filter-input',
+        preFocusEvent(target) {
+          target && (target.style.display = 'block');
+        },
+      },
+    ], // 华为cloud官网搜索 华为镜像市场
     'npm.baobaoshu.com': 'input', // 淘宝源 市场搜索
     'csdn.net': 'input', // csdn 搜索
     'code.visualstudio.com': 'input', // vscode api 搜索
@@ -297,6 +307,7 @@
                 searchSelectorStr instanceof Array
                   ? searchSelectorStr.map(selector => document.querySelector(selector)).find(Boolean)
                   : document.querySelector(searchSelectorStr);
+              console.log('searchCommonDom', href, searchCommonDom);
               preFocusEvent && preFocusEvent(searchCommonDom);
               searchCommonDom && searchCommonDom.focus();
               return cb && cb(searchCommonDom);
