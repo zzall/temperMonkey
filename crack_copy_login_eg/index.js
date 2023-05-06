@@ -6,7 +6,7 @@
 // @description:en     You can circumvent the restrictions that prohibit login and replication. It allows you to copy and paste freely on web pages without being restricted by copyright notices.
 // @description:zh-CN  可以破解禁止登录和复制的限制。它可以让你在网页上自由复制和粘贴，而不会受到版权声明的限制。
 // @namespace    http://tampermonkey.net/
-// @version      0.7.3
+// @version      0.8.0
 // @description  破解复制登录、去除复制后缀、网页全局可选、新增code标签代码复制
 // @author       zzailianlian
 // @updateURL    https://raw.githubusercontent.com/zzall/temperMonkey/master/crack_copy_login_eg/index.js
@@ -19,9 +19,58 @@
 (function () {
   'use strict';
 
+  let initCount = 0;
+  let flag = false;
+
+
+
   const initMountHandle = item => {
     if (!item.tagName) return;
-    if (item.tagName === 'CODE' && !item.innerHTML.includes('new_add_crack_copy_login_eg')) {
+
+
+    // 替换所有的'面试'、'面经'、‘一面’、‘二面’、‘三面’、‘四面’、‘五面’、‘初面’、‘终面’、‘最终面’替换为'JS'字样
+    // 替换offer为'js奖章'
+    // 遍历所有文本节点并替换符合要求的内容
+    var textNodes = getTextNodes(document.body);
+    for (var i = 0, len = textNodes.length; i < len; ++i) {
+      var node = textNodes[i];
+      var newText = node.textContent.replace(/(面试|面经|一面|二面|三面|四面|五面|初面|终面|最终面|offer)/g, "js").replace(/美团/g, 'mt').replace(/阿里/g, 'al').replace(/字节跳动/g, 'zjtd').replace(/前端/g, 'qd').replace(/华为/, 'hw');
+      if (newText != node.textContent) {
+        node.textContent = newText;
+      }
+    }
+    if (window.location.href.includes('nowcoder.com')) {
+      document.title = 'js-test'
+    }
+
+    // 给所有的代码块加上复制按钮
+    // 新增一个按钮悬浮定位到body顶部，如果点击，咋flag为true，再次点击flag为false
+
+    if (initCount < 1) {
+      const flagButton = document.createElement('button');
+      flagButton.innerText = '开/关code代码块复制';
+      flagButton.style.position = 'fixed';
+      flagButton.style.top = '0';
+      flagButton.style.right = '10px';
+      flagButton.style.zIndex = '9999';
+      flagButton.style.padding = '6px 10px';
+      flagButton.style.borderRadius = '4px';
+      flagButton.style.color = 'black';
+      // flagButton.style.background = 'red';
+      flagButton.style.background = 'rgba(255, 255, 255, 0.8)';
+      flagButton.style.cursor = 'pointer';
+      document.body.appendChild(flagButton);
+
+
+
+      flagButton.addEventListener('click', () => {
+        flag = !flag;
+        console.log('Flag:', flag);
+      });
+    }
+    initCount++;
+
+    if (item.tagName === 'PRE' && !item.innerHTML.includes('new_add_crack_copy_login_eg')) {
       // 在code区域右上角创建一个固定定位的div框
       const div = document.createElement('div');
       div.style.position = 'absolute';
@@ -47,7 +96,9 @@
       item.appendChild(div);
       item.style.position = 'relative';
       item.onmouseenter = () => {
-        div.style.display = 'block';
+        // console.log('出发了mouseenter事件,flag', flag, div, div.style.display, item)
+        flag && (div.style.display = 'block');
+        // div.style.display = 'block'
       };
       item.onmouseleave = () => {
         div.style.display = 'none';
@@ -96,7 +147,7 @@
   });
 
   // 配置观察选项（可选择监听属性、子孙节点等）
-  const config = { attributes: false, childList: true, subtree: true, characterData: false };
+  const config = { attributes: false, childList: true, subtree: true, characterData: true };
 
   // 将配置选项和 callback 函数都传入 observer 实例, 然后开始观察
   observer.observe(targetNode, config);
@@ -123,6 +174,20 @@
     initMountHandle(item);
   });
 
+  // 获取所有文本节点
+  function getTextNodes(node) {
+    var nodes = [];
+    if (node.nodeType == 3) { // 文本节点
+      nodes.push(node);
+    } else {
+      var children = node.childNodes;
+      for (var i = 0, len = children.length; i < len; ++i) {
+        nodes.push.apply(nodes, getTextNodes(children[i]));
+      }
+    }
+    return nodes;
+  }
+
   /** 针对钉钉文档不让复制的问题，考虑有以下解决办法
    * 1. 通过charles代理重写接口绕开权限校验
    * 2. 通过浏览器打开钉钉文档，然后通过谷歌插件重写权限接口，绕开权限校验
@@ -133,3 +198,4 @@
    * 7. 通过截图文件截长图
    */
 })();
+
