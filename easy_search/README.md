@@ -129,6 +129,10 @@
 
 // 例如
 const config = {
+  'csdn.net': 'input', // csdn 搜索
+  'www.runoob.com': '#s', // 菜鸟搜索
+  'cn.vuejs.org': '#search-query-nav', // vue官方文档 搜索
+  'react': '#algolia-doc-search', // react 官网搜索
   'www.npmjs.com': {
     keyCode: 71,
     metaKey: true,
