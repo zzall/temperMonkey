@@ -8,11 +8,11 @@
 #### google translate
 
 * mac：cmd + g
-* windows： windows + g
+* windows： ctrl + g
 聚焦到谷歌翻译源文件textarea
 
 * mac：cmd + f
-* windows： windows + f
+* windows： ctrl + f
 切换谷歌翻译
   * 从中文切换到英文
   * 再次触发从英文切换到中文
@@ -21,26 +21,26 @@
 #### npmjs.com的搜索框定位
 
 * mac：cmd + g
-* windows： windows + g
+* windows： ctrl + g
 
 #### www.bootcdn.cn的搜索框定位
 
 * mac：cmd + g
-* windows： windows + g
+* windows： ctrl + g
 
 #### splunk.ali.plt.babytree-inc.com的搜索框定位
 
 * mac：cmd + g
-* windows： windows + g
+* windows： ctrl + g
 
 #### bilibili首页的搜索框定位
 
 * mac：cmd + g
-* windows： windows + g
+* windows： ctrl + g
 #### bilibili搜索页的搜索框定位
 
 * mac：cmd + g
-* windows： windows + g
+* windows： ctrl + g
 
 #### 更多搜索
 
